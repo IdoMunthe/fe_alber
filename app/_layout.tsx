@@ -12,16 +12,8 @@ const Layout = () => {
         }}
       />
       <Stack.Screen
-        name="login"
+        name="(auth)"
         options={{
-          title: "Login",
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="register"
-        options={{
-          title: "Register",
           headerShown: false,
         }}
       />
@@ -29,6 +21,30 @@ const Layout = () => {
         name="dashboard"
         options={{
           title: "Dashboard",
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="new-request"
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="forklift"
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="excavator"
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="wheel-loader"
+        options={{
           headerShown: false,
         }}
       />

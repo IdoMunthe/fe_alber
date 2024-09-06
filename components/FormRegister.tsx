@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: "center",
     alignItems: "center",
-    paddingHorizontal: 20,
+    paddingHorizontal: 10,
     marginVertical: "auto",
   },
   formContent: {
@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
   },
   label: {
     marginBottom: 5,
-    marginLeft: 16,
+    marginLeft: 4,
   },
   inputWrapper: {
     flexDirection: "row",
@@ -165,6 +165,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     width: 315,
     alignItems: "center",
+    marginTop: 64,
   },
   buttonText: {
     color: "#fff",

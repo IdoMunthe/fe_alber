@@ -1,7 +1,6 @@
 import { View, Text, SafeAreaView, Image, Alert } from "react-native";
-import React, { useEffect } from "react";
-import Form from "../components/Form";
-import FormLogin from "../components/FormLogin";
+import React from "react";
+import FormLogin from "../../components/FormLogin";
 import { useRouter } from "expo-router";
 
 const Login = () => {
@@ -30,7 +29,7 @@ const Login = () => {
     <SafeAreaView className="flex-1 items-center justify-center gap-y-1">
       <Image
         className="w-80 h-10 object-cover mb-10"
-        source={require("../assets/images/gambarlogo.png")}
+        source={require("../../assets/images/gambarlogo.png")}
       />
       <View className="w-full">
         <FormLogin

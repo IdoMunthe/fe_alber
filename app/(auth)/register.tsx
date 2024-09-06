@@ -7,7 +7,7 @@ import {
   StyleSheet,
 } from "react-native";
 import React, { useEffect, useState } from "react";
-import FormRegister from "../components/FormRegister";
+import FormRegister from "../../components/FormRegister";
 import { useRouter } from "expo-router";
 
 const Register = () => {
@@ -39,43 +39,45 @@ const Register = () => {
     console.log(buttonClicked);
   };
 
+  useEffect(() => {
+    if (buttonClicked) {
+      const timer = setTimeout(() => {
+        router.replace("/login");
+      }, 1200);
+
+      return () => clearTimeout(timer);
+    }
+  }, [buttonClicked]);
+
   const router = useRouter();
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      router.replace("/login");
-    }, 1500);
-
-    return () => clearTimeout(timer);
-  }, []);
-
-    return (
-      <SafeAreaView className="flex-1 items-center justify-center gap-y-1">
-        <View>
-          <Image
-            className="w-80 h-10 object-cover mb-10"
-            source={require("../assets/images/gambarlogo.png")}
-          />
-          <View className="w-full">
-            <FormRegister
-              title="Register"
-              fields={formFields}
-              onSubmit={handleFormSubmit}
-              buttonTitle="Register"
-            ></FormRegister>
-          </View>
+  return (
+    <SafeAreaView className="flex-1 items-center justify-center gap-y-1">
+      <View>
+        <Image
+          className="w-80 h-10 object-cover mb-10"
+          source={require("../../assets/images/gambarlogo.png")}
+        />
+        <View className="w-full">
+          <FormRegister
+            title="Register"
+            fields={formFields}
+            onSubmit={handleFormSubmit}
+            buttonTitle="Register"
+          ></FormRegister>
         </View>
-        {!buttonClicked ? (
-          <></>
-        ) : (
-          <Image
-            style={styles.image}
-            source={require("../assets/images/register-success.png")}
-          />
-        )}
-      </SafeAreaView>
-    );
-  };
+      </View>
+      {!buttonClicked ? (
+        <></>
+      ) : (
+        <Image
+          style={styles.image}
+          source={require("../../assets/images/register-success.png")}
+        />
+      )}
+    </SafeAreaView>
+  );
+};
 
 const styles = StyleSheet.create({
   image: {

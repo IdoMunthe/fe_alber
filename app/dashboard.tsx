@@ -7,12 +7,15 @@ import {
 } from "react-native";
 import React from "react";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import { useRouter } from "expo-router";
+
 
 const Dashboard = () => {
+  const router = useRouter()
   return (
-    <SafeAreaView className="flex-1 justify-start items-center mt-12 relative">
+    <SafeAreaView className="flex-1 bg-white justify-start items-center mt relative">
       <Image
-        className="w-80 h-10 object-cover mb-3"
+        className="w-80 h-10 object-cover mb-5 pt-8 mt-8"
         source={require("../assets/images/gambarlogo.png")}
       />
 
@@ -41,7 +44,7 @@ const Dashboard = () => {
       </View>
 
       <View className=" flex-row justify-center pt-8 mb-6 gap-y-2 gap-x-4 flex-wrap">
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => router.push('/new-request')}>
           <Image
             style={{ objectFit: "contain" }}
             className="w-32 h-32"
