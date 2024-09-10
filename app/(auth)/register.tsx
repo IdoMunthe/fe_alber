@@ -17,7 +17,7 @@ const Register = () => {
     {
       name: "username",
       label: "Username",
-      placeholder: "mulyono",
+      placeholder: "Masukkan username",
     },
     {
       name: "role",

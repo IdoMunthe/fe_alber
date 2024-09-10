@@ -9,19 +9,19 @@ import {
 import React, { useEffect, useState } from "react";
 import { useRoute, RouteProp } from "@react-navigation/native";
 import { Picker } from "@react-native-picker/picker";
-import SubmitButton from "../components/SubmitButton";
-import CustomHeader from "../components/CustomHeader";
+import SubmitButton from "../../components/SubmitButton";
+import CustomHeader from "../../components/CustomHeader";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { useRouter } from "expo-router";
 import { Image } from "react-native";
 
 export type RootStackParamList = {
-  forklift: { jenis_alber: string };
+  excavator: { jenis_alber: string };
 };
 
-const Forklift = () => {
+const Excavator = () => {
   const router = useRouter();
-  const route = useRoute<RouteProp<RootStackParamList, "forklift">>();
+  const route = useRoute<RouteProp<RootStackParamList, "excavator">>();
   const { jenis_alber } = route.params;
 
   // State for other form fields
@@ -84,22 +84,19 @@ const Forklift = () => {
     //     console.error("Error submitting form:", error);
     //   }
     setButtonClicked(true);
-
-    
   };
-  
+
   const [buttonClicked, setButtonClicked] = useState(false);
-  
+
   useEffect(() => {
     if (buttonClicked) {
       const timer = setTimeout(() => {
-        router.replace('/dashboard')
+        router.replace("/dashboard");
       }, 1000);
 
       return () => clearTimeout(timer);
     }
   }, [buttonClicked]);
-
 
   return (
     <>
@@ -110,7 +107,9 @@ const Forklift = () => {
         <TextInput
           style={styles.input}
           placeholder="Enter No Order"
-          value={noOrder}
+          // value={noOrder}
+          value="PO-EX-001"
+          editable={false}
           onChangeText={setNoOrder}
         />
 
@@ -122,11 +121,9 @@ const Forklift = () => {
         >
           <Picker.Item label="Housekeeping" value="Housekeeping" />
           <Picker.Item label="Loading/Unloading" value="Loading/Unloading" />
-          <Picker.Item label="Kepentingan Pabrik" value="Kepentingan Pabrik" />
         </Picker>
 
-        {jenisPekerjaan === "Housekeeping" ||
-        jenisPekerjaan === "Kepentingan Pabrik" ? (
+        {jenisPekerjaan === "Housekeeping" ? (
           <>
             <Text style={styles.label}>Deskripsi Kegiatan</Text>
             <TextInput
@@ -224,7 +221,7 @@ const Forklift = () => {
       ) : (
         <Image
           style={styles.image}
-          source={require("../assets/images/order-alber-success.png")}
+          source={require("../../assets/images/order-alber-success.png")}
         />
       )}
     </>
@@ -235,7 +232,7 @@ const styles = StyleSheet.create({
   image: {
     position: "absolute",
     top: 220,
-    left: 30
+    left: 30,
   },
   container: {
     flex: 1,
@@ -259,6 +256,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     width: 316,
     alignSelf: "center",
+    color: "black",
   },
   input1: {
     borderWidth: 1,
@@ -288,4 +286,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Forklift;
+export default Excavator;

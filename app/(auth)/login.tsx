@@ -9,12 +9,12 @@ const Login = () => {
     {
       name: "username",
       label: "Username",
-      placeholder: "mulyono",
+      placeholder: "Masukkan username",
     },
     {
       name: "password",
       label: "Password",
-      placeholder: "mulyono123",
+      placeholder: "••••••••",
     },
   ];
 

@@ -7,11 +7,13 @@ import {
   FlatList,
 } from "react-native";
 import React, { useState } from "react";
-import CustomHeader from "../components/CustomHeader";
-import { IExcav, IForklift, IWheeloader } from "../assets/images";
+import CustomHeader from "../../components/CustomHeader";
+import { IExcav, IForklift, IWheeloader } from "../../assets/images";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { NavigatorScreenParams } from "@react-navigation/native";
+import { useRouter } from "expo-router";
+import Title from "../../components/Title";
 
 export type RootStackParamList = {
   NewRequest: undefined; // No params for this screen
@@ -23,6 +25,8 @@ export type RootStackParamList = {
 type NavigationProp = StackNavigationProp<RootStackParamList, "NewRequest">;
 
 const NewRequest = () => {
+  const router = useRouter();
+
   const [clickedId, setClickedId] = useState<number | null>(null);
   const navigation = useNavigation<NavigationProp>();
 
@@ -39,8 +43,11 @@ const NewRequest = () => {
 
   const handlePress = (id: number, route: string) => {
     setClickedId(id);
+    setTimeout(() => {
+      setClickedId(null);
+    }, 500);
     // @ts-ignore
-    navigation.navigate(route, { jenis_alber: route });
+    router.push(route, { jenis_alber: route });
   };
 
   const renderItem = ({ item }: { item: (typeof items)[0] }) => (
@@ -77,17 +84,7 @@ const NewRequest = () => {
   return (
     <SafeAreaView className="bg-white flex-1">
       <CustomHeader />
-      <Text
-        style={{
-          color: "#3C3C3C",
-          fontWeight: "bold",
-          fontSize: 24,
-          marginBottom: 56,
-          textAlign: "center",
-        }}
-      >
-        New Request
-      </Text>
+      <Title title="New Request" />
 
       <FlatList
         data={items}
@@ -105,12 +102,12 @@ const NewRequest = () => {
       />
 
       <Image
-        source={require("../assets/images/Ellipse2.png")}
+        source={require("../../assets/images/Ellipse2.png")}
         className="absolute"
         style={{ right: -10, top: 400 }}
       />
       <Image
-        source={require("../assets/images/Ellipse.png")}
+        source={require("../../assets/images/Ellipse.png")}
         className="absolute scale-[0.6]"
         style={{ bottom: -64, left: -64 }}
       />

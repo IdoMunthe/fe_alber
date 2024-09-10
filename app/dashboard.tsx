@@ -8,6 +8,7 @@ import {
 import React from "react";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { useRouter } from "expo-router";
+import Green1 from "../components/Green1";
 
 
 const Dashboard = () => {
@@ -15,7 +16,7 @@ const Dashboard = () => {
   return (
     <SafeAreaView className="flex-1 bg-white justify-start items-center mt relative">
       <Image
-        className="w-80 h-10 object-cover mb-5 pt-8 mt-8"
+        className="w-80 h-10 object-cover mb-5 pt-8 mt-10"
         source={require("../assets/images/gambarlogo.png")}
       />
 
@@ -58,7 +59,7 @@ const Dashboard = () => {
             source={require("../assets/images/alberVisualization.png")}
           />
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => router.push('/submission-tracking')}>
           <Image
             style={{ objectFit: "contain" }}
             className="w-32 h-32 "
@@ -77,11 +78,7 @@ const Dashboard = () => {
       <Text className="text-center font-extrabold text-[#117C00] text-2xl tracking-wider">
         Selamat Datang di {"\n"} Aplikasi Pemesanan Alat {"\n"} Berat
       </Text>
-      <Image
-        source={require("../assets/images/Ellipse.png")}
-        className="absolute scale-[0.6]"
-        style={{ bottom: -64, left: -64 }}
-      />
+      <Green1 />
     </SafeAreaView>
   );
 };

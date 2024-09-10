@@ -9,19 +9,19 @@ import {
 import React, { useEffect, useState } from "react";
 import { useRoute, RouteProp } from "@react-navigation/native";
 import { Picker } from "@react-native-picker/picker";
-import SubmitButton from "../components/SubmitButton";
-import CustomHeader from "../components/CustomHeader";
+import SubmitButton from "../../components/SubmitButton";
+import CustomHeader from "../../components/CustomHeader";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { useRouter } from "expo-router";
 import { Image } from "react-native";
 
 export type RootStackParamList = {
-  "wheel-loader": { jenis_alber: string };
+  forklift: { jenis_alber: string };
 };
 
-const WheelLoader = () => {
+const Forklift = () => {
   const router = useRouter();
-  const route = useRoute<RouteProp<RootStackParamList, "wheel-loader">>();
+  const route = useRoute<RouteProp<RootStackParamList, "forklift">>();
   const { jenis_alber } = route.params;
 
   // State for other form fields
@@ -106,8 +106,9 @@ const WheelLoader = () => {
         <Text style={styles.label}>No Order</Text>
         <TextInput
           style={styles.input}
-          placeholder="Enter No Order"
-          value={noOrder}
+          // value={noOrder}
+          value="PO-FO-001"
+          editable={false}
           onChangeText={setNoOrder}
         />
 
@@ -119,9 +120,11 @@ const WheelLoader = () => {
         >
           <Picker.Item label="Housekeeping" value="Housekeeping" />
           <Picker.Item label="Loading/Unloading" value="Loading/Unloading" />
+          <Picker.Item label="Kepentingan Pabrik" value="Kepentingan Pabrik" />
         </Picker>
 
-        {jenisPekerjaan === "Housekeeping" ? (
+        {jenisPekerjaan === "Housekeeping" ||
+        jenisPekerjaan === "Kepentingan Pabrik" ? (
           <>
             <Text style={styles.label}>Deskripsi Kegiatan</Text>
             <TextInput
@@ -219,7 +222,7 @@ const WheelLoader = () => {
       ) : (
         <Image
           style={styles.image}
-          source={require("../assets/images/order-alber-success.png")}
+          source={require("../../assets/images/order-alber-success.png")}
         />
       )}
     </>
@@ -254,6 +257,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     width: 316,
     alignSelf: "center",
+    color: "black",
   },
   input1: {
     borderWidth: 1,
@@ -283,4 +287,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default WheelLoader;
+export default Forklift;

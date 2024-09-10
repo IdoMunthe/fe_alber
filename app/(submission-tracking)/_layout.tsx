@@ -1,3 +1,4 @@
+import { View, Text } from "react-native";
 import React from "react";
 import { Stack } from "expo-router";
 
@@ -5,33 +6,25 @@ const Layout = () => {
   return (
     <Stack>
       <Stack.Screen
-        name="index"
-        options={{
-          title: "Home",
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="(auth)"
+        name="submission-tracking"
         options={{
           headerShown: false,
         }}
       />
       <Stack.Screen
-        name="dashboard"
-        options={{
-          title: "Dashboard",
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="(new-request)"
+        name="process-order"
         options={{
           headerShown: false,
         }}
       />
       <Stack.Screen
-        name="(submission-tracking)"
+        name="history-order"
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="tracking-history"
         options={{
           headerShown: false,
         }}

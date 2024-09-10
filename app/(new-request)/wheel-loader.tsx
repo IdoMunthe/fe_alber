@@ -9,19 +9,19 @@ import {
 import React, { useEffect, useState } from "react";
 import { useRoute, RouteProp } from "@react-navigation/native";
 import { Picker } from "@react-native-picker/picker";
-import SubmitButton from "../components/SubmitButton";
-import CustomHeader from "../components/CustomHeader";
+import SubmitButton from "../../components/SubmitButton";
+import CustomHeader from "../../components/CustomHeader";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { useRouter } from "expo-router";
 import { Image } from "react-native";
 
 export type RootStackParamList = {
-  excavator: { jenis_alber: string };
+  "wheel-loader": { jenis_alber: string };
 };
 
-const Excavator = () => {
+const WheelLoader = () => {
   const router = useRouter();
-  const route = useRoute<RouteProp<RootStackParamList, "excavator">>();
+  const route = useRoute<RouteProp<RootStackParamList, "wheel-loader">>();
   const { jenis_alber } = route.params;
 
   // State for other form fields
@@ -107,7 +107,9 @@ const Excavator = () => {
         <TextInput
           style={styles.input}
           placeholder="Enter No Order"
-          value={noOrder}
+          // value={noOrder}
+          value="PO-WD-001"
+          editable={false}
           onChangeText={setNoOrder}
         />
 
@@ -219,7 +221,7 @@ const Excavator = () => {
       ) : (
         <Image
           style={styles.image}
-          source={require("../assets/images/order-alber-success.png")}
+          source={require("../../assets/images/order-alber-success.png")}
         />
       )}
     </>
@@ -254,6 +256,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     width: 316,
     alignSelf: "center",
+    color: "black",
   },
   input1: {
     borderWidth: 1,
@@ -283,4 +286,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Excavator;
+export default WheelLoader;
