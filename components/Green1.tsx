@@ -6,7 +6,7 @@ const Green1 = () => {
     <Image
       source={require("../assets/images/Ellipse.png")}
       className="absolute scale-[0.6]"
-      style={{ bottom: -64, left: -64,}}
+      style={{ bottom: -64, left: -64, zIndex: -1}}
     />
   );
 }

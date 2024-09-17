@@ -91,7 +91,7 @@ const Forklift = () => {
   useEffect(() => {
     if (buttonClicked) {
       const timer = setTimeout(() => {
-        router.replace("/dashboard");
+        router.replace("/process-order");
       }, 1000);
 
       return () => clearTimeout(timer);

@@ -8,6 +8,10 @@ import {
   StyleSheet,
 } from "react-native";
 import React, { useState } from "react";
+import CustomHeader from "./CustomHeader";
+import DateTimePicker from "@react-native-community/datetimepicker";
+import { Picker } from "@react-native-picker/picker";
+import SubmitButton from "./SubmitButton";
 
 interface FormFields {
   name: string;
@@ -16,70 +20,157 @@ interface FormFields {
 }
 
 interface FormProps {
-  title: string;
-  fields: FormFields[];
-  onSubmit: (values: { [key: string]: string }) => void;
-  buttonTitle: string;
+  jenisPekerjaan: string
 }
 
 const Form: React.FC<FormProps> = ({
-  title,
-  fields,
-  onSubmit,
-  buttonTitle,
+  jenisPekerjaan
 }) => {
-  const [formValues, setFormValues] = useState<{ [key: string]: string }>({});
-
-  const handleInputChange = (name: string, value: string) => {
-    setFormValues({ ...formValues, [name]: value });
-  };
-
-  const renderItem: ListRenderItem<FormFields> = ({ item }) => (
-    <View style={styles.inputContainer}>
-      <Text style={styles.label}>{item.label}</Text>
-      <TextInput
-        placeholder={item.placeholder}
-        value={formValues[item.name] || ""}
-        onChangeText={(text) => handleInputChange(item.name, text)}
-        style={styles.input}
-      />
-    </View>
-  );
-
-  const handleSubmit = () => {
-    onSubmit(formValues);
-  };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.formContent}>
-        <Text style={styles.title}>{title}</Text>
-        <FlatList
-          data={fields}
-          renderItem={renderItem}
-          keyExtractor={(item) => item.name}
+    <>
+      <CustomHeader />
+      <View style={styles.container}>
+        <Text style={styles.title}>New Request</Text>
+        <Text style={styles.label}>No Order</Text>
+        <TextInput
+          style={styles.input}
+          // value={noOrder}
+          value="PO-FO-001"
+          editable={false}
+          // onChangeText={setNoOrder}
         />
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity style={styles.button} onPress={handleSubmit}>
-            <Text style={styles.buttonText}>{buttonTitle}</Text>
-          </TouchableOpacity>
-        </View>
+
+        <Text style={styles.label}>Jenis Pekerjaan</Text>
+        <Picker
+          // selectedValue={jenisPekerjaan}
+          // onValueChange={(value: string) => setJenisPekerjaan(value)}
+          style={styles.picker}
+        >
+          <Picker.Item label="Housekeeping" value="Housekeeping" />
+          <Picker.Item label="Loading/Unloading" value="Loading/Unloading" />
+          <Picker.Item label="Kepentingan Pabrik" value="Kepentingan Pabrik" />
+        </Picker>
+
+        {jenisPekerjaan === "Housekeeping" ||
+        jenisPekerjaan === "Kepentingan Pabrik" ? (
+          <>
+            <Text style={styles.label}>Deskripsi Kegiatan</Text>
+            <TextInput
+              style={styles.input}
+              placeholder="Enter Deskripsi Kegiatan"
+              // value={deskripsiKegiatan}
+              // onChangeText={setDeskripsiKegiatan}
+            />
+            <Text style={styles.label}>Area</Text>
+            <TextInput
+              style={styles.input}
+              placeholder="Enter Area"
+              // value={area}
+              // onChangeText={setArea}
+            />
+            <View>
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  marginHorizontal: 16,
+                }}
+              >
+                <View>
+                  <Text style={styles.label1}>Time Start</Text>
+                  <TouchableOpacity
+                    onPress={() => {
+                      // setShowPicker(true);
+                      // setCurrentPicker("start");
+                    }}
+                  >
+                    <TextInput
+                      style={styles.input1}
+                      placeholder="07.00"
+                      // value={timeStart}
+                      editable={false} // disable manual input
+                    />
+                  </TouchableOpacity>
+                </View>
+
+                <View>
+                  <Text style={styles.label1}>Time End</Text>
+                  <TouchableOpacity
+                    onPress={() => {
+                      // setShowPicker(true);
+                      // setCurrentPicker("end");
+                    }}
+                  >
+                    <TextInput
+                      style={styles.input1}
+                      placeholder="13.00"
+                      // value={timeEnd}
+                      editable={false} // disable manual input
+                    />
+                  </TouchableOpacity>
+                </View>
+              </View>
+
+              {/* <DateTimePicker
+                value={new Date()}
+                mode="time"
+                display="default"
+                // onChange={handleTimeChange}
+              /> */}
+
+            </View>
+          </>
+        ) : null}
+
+        {jenisPekerjaan === "Loading/Unloading" ? (
+          <>
+            <Text style={styles.label}>Nama Kapal</Text>
+            <TextInput
+              style={styles.input}
+              placeholder="Sukowati"
+              // value={namaKapal}
+              // onChangeText={setNamaKapal}
+            />
+            <Text style={styles.label}>Nomor Palka</Text>
+            <TextInput
+              style={styles.input}
+              placeholder="1"
+              // value={nomorPalka}
+              // onChangeText={setNomorPalka}
+            />
+          </>
+        ) : null}
+
+        <SubmitButton buttonTitle="Send Request" 
+        handleSubmit={() => console.log('submitted')} 
+        />
       </View>
-    </View>
+      {/* {!buttonClicked ? (
+        <></>
+      ) : (
+        <Image
+          style={styles.image}
+          source={require("../../assets/images/order-alber-success.png")}
+        />
+      )} */}
+    </>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    justifyContent: "center", // Centers items vertically
-    alignItems: "center", // Centers items horizontally
-    paddingHorizontal: 20, // Adds padding on the sides
-    marginBottom: 200,
+  image: {
+    position: "absolute",
+    top: 220,
+    left: 30,
   },
-  formContent: {
-    width: "100%", // Ensures form content takes full width of its parent
-    maxWidth: 400, // Optional: to limit the maximum width of the form
-    alignItems: "stretch", // Ensures child items take full width of the container
+  container: {
+    flex: 1,
+    padding: 20,
+    justifyContent: "center",
+    gap: 3,
+    // backgroundColor: "white",
   },
   title: {
     color: "#3C3C3C",
@@ -88,40 +179,41 @@ const styles = StyleSheet.create({
     marginBottom: 36,
     textAlign: "center",
   },
-  inputContainer: {
-    width: "100%",
-    marginBottom: 10,
-    alignItems: "flex-start",
-  },
-  label: {
-    marginBottom: 5,
-    marginLeft: 16,
-    color: "#707070",
-  },
   input: {
     borderWidth: 1,
     borderColor: "#ccc",
     padding: 10,
     borderRadius: 6,
     backgroundColor: "#fff",
-    width: 316, // Ensures the TextInput takes full width
+    width: 316,
+    alignSelf: "center",
+    color: "black",
+  },
+  input1: {
+    borderWidth: 1,
+    borderColor: "#ccc",
+    padding: 10,
+    borderRadius: 6,
+    backgroundColor: "#fff",
+    width: 150,
     alignSelf: "center",
   },
-  buttonContainer: {
-    alignItems: "center", // Center the button within the container
-    marginTop: 20, // Add space between inputs and button
+  label: {
+    fontSize: 16,
+    marginBottom: 5,
+    marginLeft: 16,
   },
-  button: {
-    backgroundColor: "#F0D800",
-    padding: 15,
-    borderRadius: 8,
-    width: 315, // Adjust width as needed
-    alignItems: "center",
+  label1: {
+    fontSize: 16,
+    marginBottom: 5,
   },
-  buttonText: {
-    color: "#fff",
-    fontWeight: "bold",
-    fontSize: 20,
+  picker: {
+    borderWidth: 1,
+    borderColor: "#ccc",
+    borderRadius: 6,
+    backgroundColor: "#FBFBFB",
+    width: 316,
+    alignSelf: "center",
   },
 });
 

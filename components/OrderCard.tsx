@@ -1,16 +1,16 @@
 import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 import React from "react";
 import AntDesign from "@expo/vector-icons/AntDesign";
-import { useRouter } from "expo-router";
+import { Link, useRouter } from "expo-router";
 
 interface OrderCardProps {
   no_order: string;
   jenis_alber: string;
   pekerjaan: string;
-  nama_kapal?: string;
-  request_date: Date;
+  kapal?: string;
+  created_at: Date;
   area?: string;
-  request_by: string;
+  requested_by: string;
   status: string;
   updated_by: string;
 }
@@ -29,32 +29,31 @@ const OrderCard: React.FC<OrderCardProps> = ({
   no_order,
   jenis_alber,
   pekerjaan,
-  nama_kapal,
-  request_date,
+  kapal,
+  created_at,
   area,
-  request_by,
+  requested_by,
   status,
   updated_by,
 }) => {
-
-  const router = useRouter()
+  const router = useRouter();
   return (
     <View style={styles.container}>
       <View style={styles.leftContainer}>
         <Text style={styles.h1}>{jenis_alber}</Text>
         <Text style={styles.h2}>{pekerjaan}</Text>
         {pekerjaan === "Loading/Unloading" ? (
-          <Text style={styles.h2}>Kapal {nama_kapal}</Text>
+          <Text style={styles.h2}>Kapal {kapal}</Text>
         ) : (
           <Text style={styles.h2}>Area {area}</Text>
         )}
         <Text style={styles.h3}>No. Order : {no_order}</Text>
         <Text style={styles.h3}>
-          {request_date
-            ? "Req Date  : " + formatDate(request_date)
+          {created_at
+            ? "Req Date  : " + formatDate(created_at)
             : "Date is not available"}
         </Text>
-        <Text style={styles.h3}>Request By : {request_by}</Text>
+        <Text style={styles.h3}>Request By : {requested_by}</Text>
       </View>
       <View style={styles.rightContainer}>
         <View style={styles.statusContainer}>
@@ -68,12 +67,12 @@ const OrderCard: React.FC<OrderCardProps> = ({
             </Text>
           </View>
         </View>
-        <TouchableOpacity onPress={() => router.push('/tracking-history')}>
+        <Link href={`tracking-history/${no_order}`}>
           <Image
             className="scale-[1.2] ml-2"
             source={require("../assets/images/see-tracking-history.png")}
           />
-        </TouchableOpacity>
+        </Link>
       </View>
     </View>
   );
@@ -83,12 +82,15 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "#AAFF9C",
     flexDirection: "row",
-    paddingLeft: "5%",
+    paddingHorizontal: "7%",
     paddingVertical: "3%",
     borderRadius: 12,
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexWrap: "wrap",
+    justifyContent: "center",
+    // alignItems: "center",
+    // gap: 20,
+    marginVertical: "1%",
+    marginHorizontal: "5%",
+    alignSelf: "center",
   },
   h1: {
     fontSize: 20,
@@ -111,20 +113,20 @@ const styles = StyleSheet.create({
   },
   rightContainer: {
     justifyContent: "center",
-    alignItems: "center",
+    alignItems: "flex-end",
   },
   statusContainer: {
     flexDirection: "row",
-    justifyContent: "center",
+    // justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#F0D800",
     paddingHorizontal: "4%",
     paddingVertical: "2%",
-    paddingRight: "25%",
+    paddingRight: "20%",
     marginBottom: "5%",
     borderRadius: 10,
     columnGap: 6,
-    flexWrap: "wrap",
+    // flexWrap: "wrap",
   },
 });
 

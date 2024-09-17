@@ -14,6 +14,7 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { NavigatorScreenParams } from "@react-navigation/native";
 import { useRouter } from "expo-router";
 import Title from "../../components/Title";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export type RootStackParamList = {
   NewRequest: undefined; // No params for this screen
@@ -41,18 +42,18 @@ const NewRequest = () => {
     { id: 3, source: IForklift, label: "Forklift", route: "forklift" },
   ];
 
-  const handlePress = (id: number, route: string) => {
+  const handlePress = async (id: number, route: string, label: string) => {
     setClickedId(id);
+    const jenis_alber = AsyncStorage.setItem('jenis_alber', label )
     setTimeout(() => {
       setClickedId(null);
     }, 500);
-    // @ts-ignore
-    router.push(route, { jenis_alber: route });
+    router.push(route);
   };
 
   const renderItem = ({ item }: { item: (typeof items)[0] }) => (
     <TouchableOpacity
-      onPress={() => handlePress(item.id, item.route)}
+      onPress={() => handlePress(item.id, item.route, item.label)}
       style={{
         backgroundColor: clickedId === item.id ? "#F0D800" : "#F6F6F6DE",
         justifyContent: "center",

@@ -78,7 +78,7 @@ const Form: React.FC<FormProps> = ({
           renderItem={renderItem}
           keyExtractor={(item) => item.name}
         />
-        <Link href="/" asChild>
+        <Link href="/login" asChild>
           <TouchableOpacity>
             <Text style={styles.forgotPassword}>Forgot Password?</Text>
           </TouchableOpacity>

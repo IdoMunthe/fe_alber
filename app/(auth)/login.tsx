@@ -2,12 +2,15 @@ import { View, Text, SafeAreaView, Image, Alert } from "react-native";
 import React from "react";
 import FormLogin from "../../components/FormLogin";
 import { useRouter } from "expo-router";
+import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Login = () => {
+  const BASE_URL = "https://e4e0-182-4-132-243.ngrok-free.app";
   const router = useRouter();
   const formFields = [
     {
-      name: "username",
+      name: "name",
       label: "Username",
       placeholder: "Masukkan username",
     },
@@ -18,11 +21,21 @@ const Login = () => {
     },
   ];
 
-  const handleFormSubmit = (formValues: { [key: string]: string }) => {
-    // Alert.alert("Form Submitted", JSON.stringify(formValues));
-    setTimeout(() => {
-      router.replace("/dashboard");
-    }, 500);
+  const handleFormSubmit = async (formValues: { [key: string]: string }) => {
+    try {
+      const response = await axios.post(`${BASE_URL}/api/login`, formValues);
+
+      if (response.status === 200) {
+        const token = response.data.token;
+        await AsyncStorage.setItem("token", token);
+
+        console.log("success", token);
+        router.replace("/dashboard");
+      } else return Alert.alert("Login failed", "Invalid Credentials.");
+    } catch (error) {
+      console.log(error);
+      Alert.alert("Error", "Unable to log in. Try again later!");
+    }
   };
 
   return (

@@ -19,6 +19,7 @@ const CustomHeader = () => {
         paddingBottom: '10%',
         paddingTop: '12%',
         backgroundColor: "#FBFBFB",
+        zIndex: 11
       }}
     >
       <TouchableOpacity

@@ -13,7 +13,7 @@ const Title: React.FC<TitleProps> = ({title}) => {
           color: "#3C3C3C",
           fontWeight: "bold",
           fontSize: 24,
-          marginBottom: 56,
+          marginBottom: 32,
           paddingTop: '5%',
           textAlign: "center",
         }}

@@ -43,13 +43,13 @@ const Home = () => {
       <View className="flex-1 justify-center gap-x-2 items-end mb-16 flex-row">
         <TouchableOpacity
           activeOpacity={0.2}
-          className="bg-white p-4 rounded-lg w-40 items-center"
+          className="bg-[#F0D800] p-4 rounded-lg w-64 h-14 items-center justify-center"
           onPress={() => handlePress("login")}
         >
           <Text className="font-bold">Log In</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity
+        {/* <TouchableOpacity
           className=" p-4 rounded-lg w-40 items-center"
           style={{ backgroundColor: "#F0D800" }}
           onPress={() => handlePress("register")}
@@ -59,7 +59,7 @@ const Home = () => {
           >
             Register
           </Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
     </ImageBackground>
   );
