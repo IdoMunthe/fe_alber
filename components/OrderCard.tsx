@@ -13,6 +13,7 @@ interface OrderCardProps {
   requested_by: string;
   status: string;
   updated_by: string;
+  id: number;
 }
 
 const formatDate = (date: Date) => {
@@ -35,6 +36,7 @@ const OrderCard: React.FC<OrderCardProps> = ({
   requested_by,
   status,
   updated_by,
+  id
 }) => {
   const router = useRouter();
   return (
@@ -67,7 +69,7 @@ const OrderCard: React.FC<OrderCardProps> = ({
             </Text>
           </View>
         </View>
-        <Link href={`tracking-history/${no_order}`}>
+        <Link href={`${id}`}>
           <Image
             className="scale-[1.2] ml-2"
             source={require("../assets/images/see-tracking-history.png")}
@@ -85,12 +87,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: "7%",
     paddingVertical: "3%",
     borderRadius: 12,
-    justifyContent: "center",
-    // alignItems: "center",
-    // gap: 20,
+    justifyContent: "space-between",
     marginVertical: "1%",
     marginHorizontal: "5%",
     alignSelf: "center",
+    maxWidth: "92%",
+    width: 600,
   },
   h1: {
     fontSize: 20,
@@ -102,6 +104,7 @@ const styles = StyleSheet.create({
     fontWeight: "800",
     lineHeight: 28,
     color: "#117C00",
+    maxWidth: 150,
   },
   h3: {
     color: "#117C00",
@@ -126,6 +129,8 @@ const styles = StyleSheet.create({
     marginBottom: "5%",
     borderRadius: 10,
     columnGap: 6,
+    width: 120,
+    maxHeight: 50
     // flexWrap: "wrap",
   },
 });

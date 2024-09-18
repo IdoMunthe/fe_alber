@@ -9,17 +9,18 @@ const CustomHeader = () => {
   return (
     <View
       style={{
-        width: "100%",
+        flex: 1,
+        maxHeight: 80,
         // marginTop: '10%',
-        height: 20,
         justifyContent: "space-around",
         alignItems: "center",
         flexDirection: "row",
         position: "relative",
-        paddingBottom: '10%',
-        paddingTop: '12%',
+        // paddingBottom: '10%',
+        paddingTop: "6%",
+        height: 12,
         backgroundColor: "#FBFBFB",
-        zIndex: 11
+        zIndex: 11,
       }}
     >
       <TouchableOpacity
@@ -31,7 +32,7 @@ const CustomHeader = () => {
       <Image
         style={{
           width: 250,
-          height: 40,
+          height: 48,
           marginLeft: 48,
           resizeMode: "cover",
         }}

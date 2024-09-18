@@ -4,9 +4,10 @@ import FormLogin from "../../components/FormLogin";
 import { useRouter } from "expo-router";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+// @ts-ignore
+import {BASE_URL} from '@env'
 
 const Login = () => {
-  const BASE_URL = "https://e4e0-182-4-132-243.ngrok-free.app";
   const router = useRouter();
   const formFields = [
     {

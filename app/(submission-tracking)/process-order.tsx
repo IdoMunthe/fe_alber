@@ -16,6 +16,8 @@ import OrderCard from "../../components/OrderCard";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Loading from "../../components/Loading";
+// @ts-ignore
+import { BASE_URL } from "@env";
 
 type Item = {
   id: number;
@@ -43,16 +45,13 @@ const ProcessOrder = () => {
           throw new Error("no token found!");
         }
 
-        const response = await axios.get(
-          "https://e4e0-182-4-132-243.ngrok-free.app/api/user-albers",
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+        const response = await axios.get(`${BASE_URL}/api/user-albers`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         setOrderData(response.data.data);
-        console.log(response.data.data)
+        // console.log(response.data.data);
         setLoading(false);
       } catch (error) {
         console.error("Failed to fetch orders", error);
@@ -74,27 +73,26 @@ const ProcessOrder = () => {
       updated_by={item.requested_by}
       kapal={item.kapal}
       area={item.area}
+      id={item.id}
     />
   );
 
   if (loading) {
-    return (
-      <Loading />
-    );
+    return <Loading />;
   }
 
   return (
-    <View style={{ flex: 1, backgroundColor: "white" }}>
+    <View style={{ flex: 1, backgroundColor: "white", paddingTop: "5%" }}>
       <CustomHeader />
-      <View>
-        <Title title="Process Order " />
+      <View className="mt-4">
+        <Title title="Process Order "/>
       </View>
-          <FlatList
-            data={orderData}
-            keyExtractor={(item) => item.id.toString()}
-            renderItem={renderItem}
-            contentContainerStyle={styles.container}
-          />
+      <FlatList
+        data={orderData}
+        keyExtractor={(item) => item.id.toString()}
+        renderItem={renderItem}
+        contentContainerStyle={styles.container}
+      />
       <Green1 />
       <Green2 />
     </View>
@@ -104,7 +102,7 @@ const ProcessOrder = () => {
 const styles = StyleSheet.create({
   container: {
     alignItems: "center",
-    paddingBottom: "8%"
+    paddingBottom: "8%",
   },
 });
 

@@ -16,13 +16,15 @@ import { useRouter } from "expo-router";
 import { Image } from "react-native";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+// @ts-ignore
+import {BASE_URL} from '@env'
+
 
 export type RootStackParamList = {
   "wheel-loader": { jenis_alber: string };
 };
 
 const WheelLoader = () => {
-  const BASE_URL = "https://e4e0-182-4-132-243.ngrok-free.app";
   const router = useRouter();
   const route = useRoute<RouteProp<RootStackParamList, "wheel-loader">>();
 

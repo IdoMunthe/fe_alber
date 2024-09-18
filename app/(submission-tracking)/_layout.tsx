@@ -24,7 +24,7 @@ const Layout = () => {
         }}
       />
       <Stack.Screen
-        name="tracking-history"
+        name="(tracking-history)"
         options={{
           headerShown: false,
         }}
