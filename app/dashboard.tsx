@@ -1,8 +1,8 @@
 import {
   Text,
   SafeAreaView,
-  TouchableOpacity,
   Image,
+  TouchableOpacity,
   View,
 } from "react-native";
 import React from "react";
