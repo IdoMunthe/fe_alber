@@ -1,9 +1,9 @@
 import {
+  TouchableOpacity,
   Text,
   SafeAreaView,
   Image,
   View,
-  TouchableOpacity,
 } from "react-native";
 import React from "react";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
