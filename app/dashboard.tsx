@@ -1,7 +1,7 @@
 import {
   Image,
-  View,
   Text,
+  View,
   SafeAreaView,
   TouchableOpacity,
 } from "react-native";
