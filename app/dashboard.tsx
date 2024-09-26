@@ -1,6 +1,6 @@
 import {
-  Text,
   View,
+  Text,
   SafeAreaView,
   Image,
   TouchableOpacity,
