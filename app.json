@@ -2,7 +2,7 @@
   "expo": {
     "name": "fe",
     "slug": "fe",
-    "scheme" : "fe",
+    "scheme": "fe",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/alberlogo.png",
@@ -19,14 +19,20 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/alberlogo.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.idomunthe.fe"
     },
     "web": {
       "favicon": "./assets/images/alberlogo.png",
-      "bundler" : "metro"
+      "bundler": "metro"
     },
     "plugins": [
       "expo-router"
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "520ccda9-4b75-43db-88a6-f077dec3563a"
+      }
+    }
   }
 }
