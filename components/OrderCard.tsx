@@ -40,7 +40,7 @@ const OrderCard: React.FC<OrderCardProps> = ({
 }) => {
   const router = useRouter();
   return (
-    <TouchableOpacity style={styles.container}>
+    <TouchableOpacity onPress={() => router.push(`${id}`)} style={styles.container}>
       <View style={styles.leftContainer}>
         <Text style={styles.h1}>{jenis_alber}</Text>
         <Text style={styles.h2}>{pekerjaan}</Text>
@@ -69,7 +69,7 @@ const OrderCard: React.FC<OrderCardProps> = ({
             </Text>
           </View>
         </View>
-        <Link href={`${id}`}>
+        <Link href={`tracking-history/${id}`}>
           <Image
             className="scale-[1.2] ml-2"
             source={require("../assets/images/see-tracking-history.png")}

@@ -1,0 +1,17 @@
+import { View, Text } from 'react-native'
+import React from 'react'
+import { useLocalSearchParams } from 'expo-router';
+
+const ProcessOrderDetail = () => {
+
+  const { id } = useLocalSearchParams();
+
+
+  return (
+    <View>
+      <Text>ProcessOrderDetail</Text>
+    </View>
+  )
+}
+
+export default ProcessOrderDetail
