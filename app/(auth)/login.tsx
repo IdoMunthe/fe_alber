@@ -5,7 +5,7 @@ import { useRouter } from "expo-router";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 // @ts-ignore
-import {BASE_URL} from '@env'
+import { BASE_URL } from "@env";
 
 const Login = () => {
   const router = useRouter();
@@ -24,7 +24,7 @@ const Login = () => {
 
   const handleFormSubmit = async (formValues: { [key: string]: string }) => {
     try {
-      const response = await axios.post(`${BASE_URL}/api/login`, formValues);
+      const response = await axios.post(`${BASE_URL}/api/login` , formValues);
 
       if (response.status === 200) {
         const token = response.data.token;
