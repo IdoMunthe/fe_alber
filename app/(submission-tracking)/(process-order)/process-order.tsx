@@ -8,14 +8,14 @@ import {
   ScrollView,
 } from "react-native";
 import React, { useEffect, useState } from "react";
-import Title from "../../components/Title";
-import CustomHeader from "../../components/CustomHeader";
-import Green1 from "../../components/Green1";
-import Green2 from "../../components/Green2";
-import OrderCard from "../../components/OrderCard";
+import Title from "../../../components/Title";
+import CustomHeader from "../../../components/CustomHeader";
+import Green1 from "../../../components/Green1";
+import Green2 from "../../../components/Green2";
+import OrderCard from "../../../components/OrderCard";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import Loading from "../../components/Loading";
+import Loading from "../../../components/Loading";
 // @ts-ignore
 import { BASE_URL } from "@env";
 

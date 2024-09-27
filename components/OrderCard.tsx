@@ -40,7 +40,7 @@ const OrderCard: React.FC<OrderCardProps> = ({
 }) => {
   const router = useRouter();
   return (
-    <View style={styles.container}>
+    <TouchableOpacity style={styles.container}>
       <View style={styles.leftContainer}>
         <Text style={styles.h1}>{jenis_alber}</Text>
         <Text style={styles.h2}>{pekerjaan}</Text>
@@ -76,7 +76,7 @@ const OrderCard: React.FC<OrderCardProps> = ({
           />
         </Link>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

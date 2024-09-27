@@ -12,12 +12,6 @@ const Layout = () => {
         }}
       />
       <Stack.Screen
-        name="process-order"
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
         name="history-order"
         options={{
           headerShown: false,
@@ -25,6 +19,12 @@ const Layout = () => {
       />
       <Stack.Screen
         name="(tracking-history)"
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="(process-order)"
         options={{
           headerShown: false,
         }}
