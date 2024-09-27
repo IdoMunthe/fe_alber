@@ -1,11 +1,11 @@
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
-import React from 'react'
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import React from "react";
 
 interface SubmitButtonProps {
   buttonTitle: string;
   color?: string;
   marginTop?: number;
-  handleSubmit: () => void
+  handleSubmit: () => void;
 }
 
 const SubmitButton: React.FC<SubmitButtonProps> = ({
@@ -14,16 +14,30 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({
   color = "#F0D800",
   marginTop = 64,
 }) => {
+  // Check if the button should be disabled
+  const isDisabled = buttonTitle === "Finished Working";
+
   return (
     <View style={styles.buttonContainer}>
       <TouchableOpacity
         style={[
-          { backgroundColor: color, marginTop: marginTop },
+          {
+            backgroundColor: isDisabled ? "#cccccc" : color, // Gray if disabled
+            marginTop: marginTop,
+          },
           styles.button,
         ]}
         onPress={handleSubmit}
+        disabled={isDisabled} // Disable the button when title is "Finished Working"
       >
-        <Text style={styles.buttonText}>{buttonTitle}</Text>
+        <Text
+          style={[
+            styles.buttonText,
+            { color: isDisabled ? "#888888" : "#fff" }, // Light gray text if disabled
+          ]}
+        >
+          {buttonTitle}
+        </Text>
       </TouchableOpacity>
     </View>
   );
@@ -40,10 +54,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   buttonText: {
-    color: "#fff",
     fontWeight: "bold",
     fontSize: 20,
   },
 });
 
-export default SubmitButton
+export default SubmitButton;

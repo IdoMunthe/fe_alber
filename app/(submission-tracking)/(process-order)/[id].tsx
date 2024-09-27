@@ -1,16 +1,16 @@
 import { View, TextInput, StyleSheet, Text } from "react-native";
-import React, { useEffect } from "react";
-import { router, useLocalSearchParams } from "expo-router";
+import React from "react";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import CustomHeader from "../../../components/CustomHeader";
 import Title from "../../../components/Title";
-import SubmitButton from "../../../components/SubmitButton";
-import Green1 from "../../../components/Green1";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 // @ts-ignore
 import { BASE_URL } from "@env";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import SubmitButton from "../../../components/SubmitButton";
 
 const ProcessOrderDetail = () => {
+  const router = useRouter();
   const {
     no_order,
     jenis_alber,
@@ -23,13 +23,13 @@ const ProcessOrderDetail = () => {
     requested_by,
     status,
     updated_by,
+    id,
     time_start,
     time_end,
-    id,
   } = useLocalSearchParams();
 
   // Convert string[] to string and handle undefined or empty values
-  const formatValue = (value: string | string[]) =>
+  const formatValue = (value: any) =>
     Array.isArray(value) ? value.join("") : value || "";
 
   // Check if created_at is a string or an array and handle accordingly
@@ -41,15 +41,9 @@ const ProcessOrderDetail = () => {
 
   const handleSubmit = async () => {
     let action = "";
-
-    switch (status) {
-      case "Order Request":
-        action = "start_working";
-        break;
-      case "Start working":
-        action = "stop_working";
-        break;
-    }
+    if (status === "Order Request") action = "start_working";
+    if (status === "Start Working") action = "stop_working";
+    // if (status === "Stop Working") action = "Finished Working";
 
     try {
       const token = await AsyncStorage.getItem("token");
@@ -68,27 +62,18 @@ const ProcessOrderDetail = () => {
         }
       );
 
-      console.log(action, id);
-
-      router.replace("/submission-tracking");
+      router.back();
+      router.back();
+      router.back();
     } catch (error) {
       console.log(error);
     }
   };
 
   let buttonTitle = "";
-
-  switch (status) {
-    case "Order Request":
-      buttonTitle = "Start Working";
-      break;
-    case "Start working":
-      buttonTitle = "Stop Working";
-      break;
-    case "Stop working":
-      buttonTitle = "Finished Working";
-      break;
-  }
+  if (status === "Order Request") buttonTitle = "Start Working";
+  if (status === "Start Working") buttonTitle = "Stop Working";
+  if (status === "Stop Working") buttonTitle = "Finished Working";
 
   return (
     <View className="flex-1 bg-white">
@@ -109,12 +94,24 @@ const ProcessOrderDetail = () => {
 
         {formatValue(pekerjaan) ? (
           <>
-            <Text style={styles.label}>Pekerjaan</Text>
+            <Text style={styles.label}>Jenis Pekerjaan</Text>
             <TextInput
               style={styles.input}
               value={formatValue(pekerjaan)}
               editable={false}
               placeholder="Pekerjaan"
+            />
+          </>
+        ) : null}
+
+        {formatValue(kegiatan) ? (
+          <>
+            <Text style={styles.label}>Kegiatan</Text>
+            <TextInput
+              style={styles.input}
+              value={formatValue(kegiatan)}
+              editable={false}
+              placeholder="kegiatan"
             />
           </>
         ) : null}
@@ -131,18 +128,6 @@ const ProcessOrderDetail = () => {
           </>
         ) : null}
 
-        {formatValue(no_palka) ? (
-          <>
-            <Text style={styles.label}>no_palka</Text>
-            <TextInput
-              style={styles.input}
-              value={formatValue(no_palka)}
-              editable={false}
-              placeholder="no_palka"
-            />
-          </>
-        ) : null}
-
         {formatValue(area) ? (
           <>
             <Text style={styles.label}>Area</Text>
@@ -155,71 +140,48 @@ const ProcessOrderDetail = () => {
           </>
         ) : null}
 
-        {formatValue(kegiatan) ? (
+        {formatValue(no_palka) ? (
           <>
-            <Text style={styles.label}>Kegiatan</Text>
+            <Text style={styles.label}>Nomor Palka</Text>
             <TextInput
               style={styles.input}
-              value={formatValue(kegiatan)}
+              value={formatValue(no_palka)}
               editable={false}
-              placeholder="Kegiatan"
+              placeholder="No Palka"
             />
           </>
         ) : null}
 
-        {formatValue(time_start) && formatValue(time_end) ? (
-          <View className="flex-row justify-evenly">
-            <View>
-              <Text>Time Start</Text>
-              <TextInput
-                style={[
-                  styles.input,
-                  {
-                    borderWidth: 1,
-                    borderColor: "#ccc",
-                    padding: 10,
-                    borderRadius: 6,
-                    backgroundColor: "#fff",
-                    width: 150,
-                    alignSelf: "center",
-                  },
-                ]}
-                value={formatValue(time_start)}
-                editable={false}
-                placeholder="time_start"
-              />
-            </View>
-            <View>
-              <Text>Time End</Text>
-              <TextInput
-                style={[
-                  styles.input,
-                  {
-                    borderWidth: 1,
-                    borderColor: "#ccc",
-                    padding: 10,
-                    borderRadius: 6,
-                    backgroundColor: "#fff",
-                    width: 150,
-                    alignSelf: "center",
-                  },
-                ]}
-                value={formatValue(time_end)}
-                editable={false}
-                placeholder="time_end"
-              />
-            </View>
-          </View>
+        {formatValue(time_start) ? (
+          <>
+            <Text style={styles.label}>Time Start</Text>
+            <TextInput
+              style={styles.input}
+              value={formatValue(time_start)}
+              editable={false}
+              placeholder="Time Start"
+            />
+          </>
+        ) : null}
+
+        {formatValue(time_end) ? (
+          <>
+            <Text style={styles.label}>Time End</Text>
+            <TextInput
+              style={styles.input}
+              value={formatValue(time_end)}
+              editable={false}
+              placeholder="Time End"
+            />
+          </>
         ) : null}
       </View>
       <SubmitButton
-        color="#117C00"
-        // @ts-ignore
         buttonTitle={buttonTitle}
-        marginTop={20}
+        color="#117C00"
+        marginTop={15}
         handleSubmit={handleSubmit}
       />
-      <Green1 />
     </View>
   );
 };
@@ -233,7 +195,7 @@ const styles = StyleSheet.create({
   input: {
     borderWidth: 1,
     borderColor: "#ccc",
-    padding: 8,
+    padding: 5,
     borderRadius: 6,
     backgroundColor: "#fff",
     width: 316,
