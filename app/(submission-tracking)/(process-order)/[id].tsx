@@ -76,7 +76,7 @@ const ProcessOrderDetail = () => {
     }
   };
 
-  let buttonTitle = "Finished Working";
+  let buttonTitle = "";
 
   switch (status) {
     case "Order Request":

@@ -107,7 +107,10 @@ const Forklift = () => {
       pekerjaan: jenisPekerjaan,
     };
 
-    if (jenisPekerjaan === "Housekeeping") {
+    if (
+      jenisPekerjaan === "Housekeeping" ||
+      jenisPekerjaan === "Kepentingan Pabrik"
+    ) {
       formData = {
         ...formData,
         kegiatan: deskripsiKegiatan,
@@ -261,8 +264,7 @@ const Forklift = () => {
           </>
         ) : null}
 
-        {jenisPekerjaan === "Loading/Unloading" ||
-        jenisPekerjaan === "Kepentingan Pabrik" ? (
+        {jenisPekerjaan === "Loading/Unloading" ? (
           <>
             <Text style={styles.label}>Nama Kapal</Text>
             <TextInput
