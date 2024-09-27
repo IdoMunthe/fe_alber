@@ -78,7 +78,7 @@ const Dashboard = () => {
             source={require("../assets/images/newRequest.png")}
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => router.push("/alber-visualization")}>
+        <TouchableOpacity>
           <Image
             style={{ objectFit: "contain" }}
             className="w-32 h-32 "
