@@ -8,12 +8,16 @@ interface OrderCardProps {
   jenis_alber: string;
   pekerjaan: string;
   kapal?: string;
+  no_palka?: string;
   created_at: Date;
   area?: string;
+  kegiatan?: string;
   requested_by: string;
   status: string;
   updated_by: string;
   id: number;
+  time_start?: string;
+  time_end?: string;
 }
 
 const formatDate = (date: Date) => {
@@ -31,16 +35,58 @@ const OrderCard: React.FC<OrderCardProps> = ({
   jenis_alber,
   pekerjaan,
   kapal,
+  no_palka,
   created_at,
   area,
+  kegiatan,
   requested_by,
   status,
   updated_by,
-  id
+  id,
+  time_start,
+  time_end,
 }) => {
   const router = useRouter();
   return (
-    <TouchableOpacity onPress={() => router.push(`${id}`)} style={styles.container}>
+    <TouchableOpacity
+      onPress={() => {
+        router.push({
+          pathname: `${id}`,
+          params: {
+            no_order,
+            jenis_alber,
+            pekerjaan,
+            kapal,
+            no_palka,
+            created_at: created_at.toISOString(), // pass date as string
+            area,
+            kegiatan,
+            requested_by,
+            status,
+            updated_by,
+            time_start,
+            time_end,
+          },
+        });
+        console.log(
+          no_order,
+          jenis_alber,
+          pekerjaan,
+          kapal,
+          no_palka,
+          created_at,
+          area,
+          kegiatan,
+          requested_by,
+          status,
+          updated_by,
+          id,
+          time_start,
+          time_end
+        );
+      }}
+      style={styles.container}
+    >
       <View style={styles.leftContainer}>
         <Text style={styles.h1}>{jenis_alber}</Text>
         <Text style={styles.h2}>{pekerjaan}</Text>
@@ -130,7 +176,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     columnGap: 6,
     width: 120,
-    maxHeight: 50
+    maxHeight: 50,
     // flexWrap: "wrap",
   },
 });

@@ -3,30 +3,41 @@ import React from 'react'
 
 interface SubmitButtonProps {
   buttonTitle: string;
+  color?: string;
+  marginTop?: number;
   handleSubmit: () => void
 }
 
-const SubmitButton: React.FC<SubmitButtonProps> = ({buttonTitle, handleSubmit}) => {
+const SubmitButton: React.FC<SubmitButtonProps> = ({
+  buttonTitle,
+  handleSubmit,
+  color = "#F0D800",
+  marginTop = 64,
+}) => {
   return (
     <View style={styles.buttonContainer}>
-      <TouchableOpacity style={styles.button} onPress={handleSubmit}>
+      <TouchableOpacity
+        style={[
+          { backgroundColor: color, marginTop: marginTop },
+          styles.button,
+        ]}
+        onPress={handleSubmit}
+      >
         <Text style={styles.buttonText}>{buttonTitle}</Text>
       </TouchableOpacity>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   buttonContainer: {
     alignItems: "center",
   },
   button: {
-    backgroundColor: "#F0D800",
     padding: 15,
     borderRadius: 8,
     width: 315,
     alignItems: "center",
-    marginTop: 64,
   },
   buttonText: {
     color: "#fff",

@@ -14,17 +14,21 @@ import CustomHeader from "../../components/CustomHeader";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { useRouter } from "expo-router";
 import { Image } from "react-native";
+import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+// @ts-ignore
+import { BASE_URL } from "@env";
 
 export type RootStackParamList = {
-  excavator: { jenis_alber: string };
+  "excavator": { jenis_alber: string };
 };
 
 const Excavator = () => {
   const router = useRouter();
   const route = useRoute<RouteProp<RootStackParamList, "excavator">>();
-  const { jenis_alber } = route.params;
 
   // State for other form fields
+  const [jenisAlber, setJenisAlber] = useState("");
   const [noOrder, setNoOrder] = useState("");
   const [jenisPekerjaan, setJenisPekerjaan] = useState("Housekeeping"); // dropdown value
   const [deskripsiKegiatan, setDeskripsiKegiatan] = useState("");
@@ -38,13 +42,56 @@ const Excavator = () => {
     null
   ); // track which time field is being set
 
+  // Fetch next no_order from backend when component mounts
+  useEffect(() => {
+    const fetchNextOrder = async () => {
+      try {
+        let jenis_alber = await AsyncStorage.getItem("jenis_alber");
+
+        if (jenis_alber === "Excavator") {
+          jenis_alber = "excavator";
+        }
+
+        console.log(jenis_alber);
+
+        const token = await AsyncStorage.getItem("token");
+        if (jenis_alber) {
+          setJenisAlber(jenis_alber);
+        }
+        if (!token) {
+          throw new Error("no token found!");
+        }
+
+        const response = await axios.get(
+          `${BASE_URL}/api/next-order/Excavator`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        setNoOrder(response.data.no_order);
+        console.log(response.data.no_order);
+      } catch (error) {
+        console.error("Error fetching next order:", error);
+      }
+    };
+
+    fetchNextOrder();
+  }, []);
+
   const handleTimeChange = (event: any, selectedTime: Date | undefined) => {
     setShowPicker(false); // hide picker after time is chosen
     if (selectedTime) {
-      const timeString = selectedTime.toLocaleTimeString([], {
-        hour: "2-digit",
-        minute: "2-digit",
-      });
+      const hours = selectedTime.getHours();
+      const minutes = selectedTime.getMinutes();
+
+      // Format hours and minutes to two digits
+      const formattedHours = hours < 10 ? `0${hours}` : hours;
+      const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
+
+      const timeString = `${formattedHours}:${formattedMinutes}`;
+
       if (currentPicker === "start") {
         setTimeStart(timeString);
       } else if (currentPicker === "end") {
@@ -55,34 +102,52 @@ const Excavator = () => {
 
   // Function to handle form submission
   const handleSubmit = async () => {
-    const formData = {
-      jenis_alber, // Include jenis_alber
-      no_order: noOrder,
-      jenis_pekerjaan: jenisPekerjaan,
-      deskripsi_kegiatan: deskripsiKegiatan,
-      area,
-      time_start: timeStart,
-      time_end: timeEnd,
-      nama_kapal: namaKapal,
-      nomor_palka: nomorPalka,
+    let formData: any = {
+      jenis_alber: "Excavator",
+      pekerjaan: jenisPekerjaan,
     };
 
-    // Handle API POST here later on
-    // Send the formData to your backend API
-    //   try {
-    //     const response = await fetch("YOUR_API_ENDPOINT", {
-    //       method: "POST",
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //       },
-    //       body: JSON.stringify(formData),
-    //     });
+    if (jenisPekerjaan === "Housekeeping") {
+      formData = {
+        ...formData,
+        kegiatan: deskripsiKegiatan,
+        area: area,
+        time_start: timeStart,
+        time_end: timeEnd,
+      };
+    }
+    if (jenisPekerjaan === "Loading/Unloading") {
+      formData = {
+        ...formData,
+        kapal: namaKapal,
+        no_palka: nomorPalka,
+      };
+    }
 
-    //     const data = await response.json();
-    //     console.log("Response from server:", data);
-    //   } catch (error) {
-    //     console.error("Error submitting form:", error);
-    //   }
+    console.log(formData);
+
+    try {
+      const token = await AsyncStorage.getItem("token");
+
+      if (!token) {
+        throw new Error("no token found!");
+      }
+
+      const response = await axios.post(
+        `${BASE_URL}/api/request-alber`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      console.log("Response from server:", response.data);
+    } catch (error) {
+      alert(error);
+      console.error("Error submitting form:", error);
+    }
     setButtonClicked(true);
   };
 
@@ -107,8 +172,7 @@ const Excavator = () => {
         <TextInput
           style={styles.input}
           placeholder="Enter No Order"
-          // value={noOrder}
-          value="PO-EX-001"
+          value={noOrder}
           editable={false}
           onChangeText={setNoOrder}
         />

@@ -25,11 +25,15 @@ type Item = {
   jenis_alber: string;
   pekerjaan: string;
   kapal?: string;
+  no_palka?: string;
   created_at: Date;
   area?: string;
+  kegiatan?: string;
   requested_by: string;
   status: string;
   updated_by: string;
+  time_start: string;
+  time_end: string;
 };
 
 const ProcessOrder = () => {
@@ -71,9 +75,13 @@ const ProcessOrder = () => {
       requested_by={item.requested_by}
       status={item.status}
       updated_by={item.requested_by}
+      no_palka={item.no_palka}
       kapal={item.kapal}
       area={item.area}
+      kegiatan={item.kegiatan}
       id={item.id}
+      time_start = {item.time_start}
+      time_end = {item.time_end}
     />
   );
 
@@ -85,7 +93,7 @@ const ProcessOrder = () => {
     <View style={{ flex: 1, backgroundColor: "white", paddingTop: "5%" }}>
       <CustomHeader />
       <View className="mt-4">
-        <Title title="Process Order "/>
+        <Title title="Process Order " />
       </View>
       <FlatList
         data={orderData}
