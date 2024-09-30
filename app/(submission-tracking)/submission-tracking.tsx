@@ -23,8 +23,8 @@ const SubmissionTracking = () => {
           </TouchableOpacity>
         </View>
       </SafeAreaView>
-      <Green1 />
-      <Green2 />
+      <Green1 customStyle={{zIndex: 0}}/>
+      <Green2 customStyle={{zIndex: 1}}/>
     </>
   );
 };
