@@ -89,11 +89,21 @@ const ProcessOrder = () => {
     return <Loading />;
   }
 
+  if (orderData.length === 0) {
+    return (
+      <View className="bg-white flex-1">
+        <CustomHeader />
+        <Title title="Process Order" />
+        <Text className="text-lg mx-auto">Belum ada process order</Text>
+      </View>
+    );
+  }
+
   return (
     <View style={{ flex: 1, backgroundColor: "white", paddingTop: "5%" }}>
       <CustomHeader customStyle={{paddingTop: "10%"}} arrowStyle={{top: -10}}/>
       <View className="mt-4">
-        <Title title="Process Order " />
+        <Title title="Process Order" />
       </View>
       <FlatList
         data={orderData}
