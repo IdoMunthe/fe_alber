@@ -1,24 +1,24 @@
 {
   "expo": {
-    "name": "fe",
-    "slug": "fe",
-    "scheme": "fe",
+    "name": "Alber",
+    "slug": "Alber",
+    "scheme": "alber",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/alberlogo.png",
+    "icon": "./assets/images/alberlogo1.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/images/splash.png",
       "resizeMode": "cover",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#31AD1D"
     },
     "ios": {
       "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/alberlogo.png",
-        "backgroundColor": "#ffffff"
+        "foregroundImage": "./assets/images/alberlogo1.png",
+        "backgroundColor": "#31AD1D"
       },
       "package": "com.idomunthe.fe"
     },
