@@ -5,6 +5,7 @@ import {
   Button,
   StyleSheet,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useRoute, RouteProp } from "@react-navigation/native";
@@ -143,18 +144,22 @@ const Excavator = () => {
         }
       );
 
+      setIsError(false)
+
       console.log("Response from server:", response.data);
     } catch (error) {
-      alert(error);
+      setIsError(true)
+      Alert.alert("Error","Terjadi kesalahan! Coba lagi!");
       console.error("Error submitting form:", error);
     }
     setButtonClicked(true);
   };
 
   const [buttonClicked, setButtonClicked] = useState(false);
+  const [isError, setIsError] = useState(false);
 
   useEffect(() => {
-    if (buttonClicked) {
+    if (buttonClicked && !isError) {
       const timer = setTimeout(() => {
         router.replace("/process-order");
       }, 1000);
@@ -280,13 +285,13 @@ const Excavator = () => {
 
         <SubmitButton buttonTitle="Send Request" handleSubmit={handleSubmit} />
       </View>
-      {!buttonClicked ? (
-        <></>
-      ) : (
+      {buttonClicked && !isError ? (
         <Image
           style={styles.image}
           source={require("../../assets/images/order-alber-success.png")}
         />
+      ) : (
+        <></>
       )}
     </>
   );

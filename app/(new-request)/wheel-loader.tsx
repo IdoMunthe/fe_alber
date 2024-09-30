@@ -5,6 +5,7 @@ import {
   Button,
   StyleSheet,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useRoute, RouteProp } from "@react-navigation/native";
@@ -17,8 +18,7 @@ import { Image } from "react-native";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 // @ts-ignore
-import {BASE_URL} from '@env'
-
+import { BASE_URL } from "@env";
 
 export type RootStackParamList = {
   "wheel-loader": { jenis_alber: string };
@@ -29,7 +29,7 @@ const WheelLoader = () => {
   const route = useRoute<RouteProp<RootStackParamList, "wheel-loader">>();
 
   // State for other form fields
-  const [jenisAlber, setJenisAlber] = useState("")
+  const [jenisAlber, setJenisAlber] = useState("");
   const [noOrder, setNoOrder] = useState("");
   const [jenisPekerjaan, setJenisPekerjaan] = useState("Housekeeping"); // dropdown value
   const [deskripsiKegiatan, setDeskripsiKegiatan] = useState("");
@@ -49,15 +49,15 @@ const WheelLoader = () => {
       try {
         let jenis_alber = await AsyncStorage.getItem("jenis_alber");
 
-        if(jenis_alber === "Wheel Loader"){
-          jenis_alber = "wheel-loader"
+        if (jenis_alber === "Wheel Loader") {
+          jenis_alber = "wheel-loader";
         }
 
-        console.log(jenis_alber)
+        console.log(jenis_alber);
 
         const token = await AsyncStorage.getItem("token");
-        if(jenis_alber) {
-          setJenisAlber(jenis_alber)
+        if (jenis_alber) {
+          setJenisAlber(jenis_alber);
         }
         if (!token) {
           throw new Error("no token found!");
@@ -72,7 +72,7 @@ const WheelLoader = () => {
           }
         );
         setNoOrder(response.data.no_order);
-        console.log(response.data.no_order)
+        console.log(response.data.no_order);
       } catch (error) {
         console.error("Error fetching next order:", error);
       }
@@ -91,12 +91,12 @@ const WheelLoader = () => {
       const formattedHours = hours < 10 ? `0${hours}` : hours;
       const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
 
-      const timeString = `${formattedHours}:${formattedMinutes}`
+      const timeString = `${formattedHours}:${formattedMinutes}`;
 
-      if (currentPicker === 'start') {
-        setTimeStart(timeString)
-      } else if (currentPicker === 'end') {
-        setTimeEnd(timeString)
+      if (currentPicker === "start") {
+        setTimeStart(timeString);
+      } else if (currentPicker === "end") {
+        setTimeEnd(timeString);
       }
     }
   };
@@ -125,7 +125,7 @@ const WheelLoader = () => {
       };
     }
 
-    console.log(formData)
+    console.log(formData);
 
     try {
       const token = await AsyncStorage.getItem("token");
@@ -143,19 +143,22 @@ const WheelLoader = () => {
           },
         }
       );
+      setIsError(false)
 
       console.log("Response from server:", response.data);
     } catch (error) {
-      alert(error);
+      Alert.alert("Error", "Terjadi kesalahan! Coba lagi!");
+      setIsError(true)
       console.error("Error submitting form:", error);
     }
     setButtonClicked(true);
   };
 
   const [buttonClicked, setButtonClicked] = useState(false);
+  const [isError, setIsError] = useState(false);
 
   useEffect(() => {
-    if (buttonClicked) {
+    if (buttonClicked && !isError) {
       const timer = setTimeout(() => {
         router.replace("/process-order");
       }, 1000);
@@ -281,13 +284,13 @@ const WheelLoader = () => {
 
         <SubmitButton buttonTitle="Send Request" handleSubmit={handleSubmit} />
       </View>
-      {!buttonClicked ? (
-        <></>
-      ) : (
+      {buttonClicked && !isError ? (
         <Image
           style={styles.image}
           source={require("../../assets/images/order-alber-success.png")}
         />
+      ) : (
+        <></>
       )}
     </>
   );
