@@ -91,7 +91,7 @@ const ProcessOrder = () => {
 
   return (
     <View style={{ flex: 1, backgroundColor: "white", paddingTop: "5%" }}>
-      <CustomHeader />
+      <CustomHeader customStyle={{paddingTop: "10%"}} arrowStyle={{top: -10}}/>
       <View className="mt-4">
         <Title title="Process Order " />
       </View>

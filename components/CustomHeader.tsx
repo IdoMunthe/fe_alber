@@ -3,12 +3,17 @@ import { useRouter } from "expo-router";
 import { Image, View } from "react-native";
 import { TouchableOpacity } from "react-native";
 
-const CustomHeader = () => {
+interface Props {
+  customStyle?: {}
+  arrowStyle?: {};
+}
+
+const CustomHeader: React.FC<Props> = ({ arrowStyle, customStyle }) => {
   const router = useRouter();
 
   return (
     <View
-      style={{
+      style={[{
         flex: 1,
         maxHeight: 80,
         // marginTop: '10%',
@@ -21,13 +26,18 @@ const CustomHeader = () => {
         height: 12,
         backgroundColor: "#FBFBFB",
         zIndex: 11,
-      }}
+      }, customStyle]}
     >
       <TouchableOpacity
         onPress={() => router.back()}
         style={{ position: "absolute", top: 36, left: 20 }}
       >
-        <Ionicons name="arrow-back" size={24} color="black" />
+        <Ionicons
+          name="arrow-back"
+          size={24}
+          color="black"
+          style={arrowStyle}
+        />
       </TouchableOpacity>
       <Image
         style={{
