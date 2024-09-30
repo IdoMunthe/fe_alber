@@ -21,7 +21,9 @@
         "backgroundColor": "#31AD1D"
       },
       "package": "com.idomunthe.fe",
-      "permissions": ["INTERNET"]
+      "permissions": [
+        "INTERNET"
+      ]
     },
     "web": {
       "favicon": "./assets/images/alberlogo.png",
@@ -32,6 +34,7 @@
     ],
     "extra": {
       "eas": {
+        "projectId": "6dc90e03-e52a-47c9-9a6b-0f31fd3a45c5"
       }
     }
   }
