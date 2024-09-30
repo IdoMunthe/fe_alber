@@ -57,6 +57,18 @@ const HistoryOrder = () => {
     return <Loading/>
   }
 
+  if (finishedAlbers.length === 0) {
+    return (
+      <View className="bg-white flex-1">
+        <CustomHeader/>
+        <Title
+          title="History Order"
+        />
+        <Text className="text-lg mx-auto">Belum ada history order</Text>
+      </View>
+    );
+  }
+
   return (
     <View className=" bg-white flex-1 pt-[10%]">
       <CustomHeader arrowStyle={{top: -20}}/>
