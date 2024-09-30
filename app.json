@@ -20,7 +20,8 @@
         "foregroundImage": "./assets/images/alberlogo1.png",
         "backgroundColor": "#31AD1D"
       },
-      "package": "com.idomunthe.fe"
+      "package": "com.idomunthe.fe",
+      "permissions": ["INTERNET"]
     },
     "web": {
       "favicon": "./assets/images/alberlogo.png",
