@@ -1,6 +1,6 @@
+import React, { useState, useEffect } from "react";
 import { View, TextInput, StyleSheet, Text } from "react-native";
-import React from "react";
-import { useLocalSearchParams, useRouter } from "expo-router";
+import { useLocalSearchParams } from "expo-router";
 import CustomHeader from "../../../components/CustomHeader";
 import Title from "../../../components/Title";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -8,9 +8,9 @@ import axios from "axios";
 // @ts-ignore
 import { BASE_URL } from "@env";
 import SubmitButton from "../../../components/SubmitButton";
+import Loading from "../../../components/Loading";
 
 const ProcessOrderDetail = () => {
-  const router = useRouter();
   const {
     no_order,
     jenis_alber,
@@ -28,22 +28,23 @@ const ProcessOrderDetail = () => {
     time_end,
   } = useLocalSearchParams();
 
+  const [currentStatus, setCurrentStatus] = useState(status); // Store the status in the state
+  const [isLoading, setIsLoading] = useState(false)
+
   // Convert string[] to string and handle undefined or empty values
   const formatValue = (value: any) =>
     Array.isArray(value) ? value.join("") : value || "";
 
-  // Check if created_at is a string or an array and handle accordingly
   const formattedDate = created_at
     ? Array.isArray(created_at)
-      ? new Date(created_at[0]).toLocaleString() // If it's an array, use the first element
-      : new Date(created_at).toLocaleString() // Otherwise, directly convert it
+      ? new Date(created_at[0]).toLocaleString()
+      : new Date(created_at).toLocaleString()
     : "";
 
   const handleSubmit = async () => {
     let action = "";
-    if (status === "Order Request") action = "start_working";
-    if (status === "Start Working") action = "stop_working";
-    // if (status === "Stop Working") action = "Finished Working";
+    if (currentStatus === "Order Request") action = "start_working";
+    if (currentStatus === "Start Working") action = "stop_working";
 
     try {
       const token = await AsyncStorage.getItem("token");
@@ -51,6 +52,8 @@ const ProcessOrderDetail = () => {
       if (!token) {
         throw new Error("no token found!");
       }
+
+      setIsLoading(true)
 
       await axios.put(
         `${BASE_URL}/api/history-order`,
@@ -62,16 +65,46 @@ const ProcessOrderDetail = () => {
         }
       );
 
-      router.back();
+      const response = await axios.get(`${BASE_URL}/api/alber-status/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+
+      setCurrentStatus(response.data.status)
+
+      // Update the status locally to trigger a re-render
+      // if (currentStatus === "Order Request") setCurrentStatus("Start Working");
+      // if (currentStatus === "Start Working") setCurrentStatus("Stop Working");
+      // if (currentStatus === "Stop Working")
+      //   setCurrentStatus("Finished Working");
+
+      setIsLoading(false)
+      // setTimeout(() => {
+      // }, 100);
     } catch (error) {
       console.log(error);
     }
   };
 
   let buttonTitle = "";
-  if (status === "Order Request") buttonTitle = "Start Working";
-  if (status === "Start Working") buttonTitle = "Stop Working";
-  if (status === "Stop Working") buttonTitle = "Finished Working";
+  if (currentStatus === "Order Request") buttonTitle = "Start Working";
+  if (currentStatus === "Start Working") buttonTitle = "Stop Working";
+  if (currentStatus === "Stop Working") buttonTitle = "Finished Working";
+
+  // Use useEffect to reload/re-render the component if needed based on status change
+  // useEffect(() => {
+  //   // You could add additional logic here if you want to perform any action on page "reload"
+  //   setIsLoading(false);
+  //   setTimeout(() => {
+  //     setIsLoading(true);
+  //   }, 100);
+  //   console.log("Status has been updated to:", currentStatus);
+  // }, [currentStatus]); // Runs every time the currentStatus is updated
+
+  if (isLoading) {
+    return <Loading />
+  }
 
   return (
     <View className="flex-1 bg-white">
