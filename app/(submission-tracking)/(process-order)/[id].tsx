@@ -63,8 +63,6 @@ const ProcessOrderDetail = () => {
       );
 
       router.back();
-      router.back();
-      router.back();
     } catch (error) {
       console.log(error);
     }
