@@ -6,6 +6,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 // @ts-ignore
 import { BASE_URL } from "@env";
+import AntDesign from "@expo/vector-icons/AntDesign";
 
 const SettingApplication = () => {
   const [userInfo, setUserInfo] = useState({ name: "", role: "" });
@@ -37,20 +38,28 @@ const SettingApplication = () => {
       <Title title="Setting Application" />
 
       <View>
-        <View className="items-center">
+        <View className="items-center mb-8">
           <Image
             source={require("../assets/images/user.jpg")}
             className="w-20 h-20 rounded-full mb-4"
           />
-          <Text>{userInfo.name}</Text>
-          <Text className="font-bold">
-            {userInfo.role === 'admin_pg' ? 'User' : userInfo.role}
+          <Text className=" text-base">{userInfo.name}</Text>
+          <Text className="font-bold text-base">
+            {userInfo.role === "admin_pg" ? "User" : userInfo.role}
           </Text>
         </View>
 
-        <View className="ml-4">
-        <Text className="font-bold">Akun</Text>
-        <View className="h-2 w-42" />
+        <View className="mx-6 gap-y-[8]">
+          <Text className="font-bold text-lg">Akun</Text>
+          <View className="h-[0.7] w-[100%] bg-black" />
+          <View className="flex-row justify-between">
+            <Text className="text-gray-500">Ganti Password</Text>
+            <AntDesign name="right" size={24} color="black" />
+          </View>
+          <View className="flex-row justify-between">
+            <Text className="text-gray-500">Ganti Foto Profil</Text>
+            <AntDesign name="right" size={24} color="black" />
+          </View>
         </View>
       </View>
     </View>
