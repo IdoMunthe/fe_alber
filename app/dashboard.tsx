@@ -94,7 +94,7 @@ const Dashboard = () => {
             source={require("../assets/images/submissionTracking.png")}
           />
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => router.push("/setting-application")}>
           <Image
             style={{ objectFit: "contain" }}
             className="w-32 h-32 "
