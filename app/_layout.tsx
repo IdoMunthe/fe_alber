@@ -36,6 +36,12 @@ const Layout = () => {
           headerShown: false,
         }}
       />
+      <Stack.Screen
+        name="setting-application"
+        options={{
+          headerShown: false,
+        }}
+      />
     </Stack>
   );
 };
