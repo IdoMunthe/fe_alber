@@ -35,15 +35,23 @@ const SettingApplication = () => {
     <View className="flex-1 bg-white">
       <CustomHeader />
       <Title title="Setting Application" />
-      <View className="items-center">
-        <Image
-          source={require("../assets/images/user.jpg")}
-          className="w-20 h-20 rounded-full mb-4"
-        />
-        <Text>{userInfo.name}</Text>
-        <Text className="font-bold">
-          {userInfo.role === 'admin_pg' ? 'User' : userInfo.role}
-        </Text>
+
+      <View>
+        <View className="items-center">
+          <Image
+            source={require("../assets/images/user.jpg")}
+            className="w-20 h-20 rounded-full mb-4"
+          />
+          <Text>{userInfo.name}</Text>
+          <Text className="font-bold">
+            {userInfo.role === 'admin_pg' ? 'User' : userInfo.role}
+          </Text>
+        </View>
+
+        <View className="ml-4">
+        <Text className="font-bold">Akun</Text>
+        <View className="h-2 w-42" />
+        </View>
       </View>
     </View>
   );
