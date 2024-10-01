@@ -7,6 +7,7 @@ import axios from "axios";
 // @ts-ignore
 import { BASE_URL } from "@env";
 import AntDesign from "@expo/vector-icons/AntDesign";
+import { router } from "expo-router";
 
 const SettingApplication = () => {
   const [userInfo, setUserInfo] = useState({ name: "", role: "" });
@@ -31,6 +32,12 @@ const SettingApplication = () => {
     };
     fetchUserInfo();
   }, []);
+
+  const handleSubmit = () => {
+    AsyncStorage.removeItem("token");
+
+    router.replace("/login");
+  };
 
   return (
     <View className="flex-1 bg-white">
@@ -61,6 +68,13 @@ const SettingApplication = () => {
             <AntDesign name="right" size={20} color="black" />
           </TouchableOpacity>
         </View>
+
+        <TouchableOpacity 
+        className="bg-[#FF0D0D] mt-32 items-center w-32 py-2 rounded-full mx-auto"
+        onPress={handleSubmit}
+        >
+          <Text className="text-white text-lg font-bold">Logout</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
