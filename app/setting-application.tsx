@@ -1,4 +1,4 @@
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, TouchableOpacity } from "react-native";
 import React, { useEffect, useState } from "react";
 import CustomHeader from "../components/CustomHeader";
 import Title from "../components/Title";
@@ -49,17 +49,17 @@ const SettingApplication = () => {
           </Text>
         </View>
 
-        <View className="mx-6 gap-y-[8]">
+        <View className="mx-6 gap-y-[12]">
           <Text className="font-bold text-lg">Akun</Text>
           <View className="h-[0.7] w-[100%] bg-black" />
-          <View className="flex-row justify-between">
-            <Text className="text-gray-500">Ganti Password</Text>
-            <AntDesign name="right" size={24} color="black" />
-          </View>
-          <View className="flex-row justify-between">
-            <Text className="text-gray-500">Ganti Foto Profil</Text>
-            <AntDesign name="right" size={24} color="black" />
-          </View>
+          <TouchableOpacity className="flex-row justify-between">
+            <Text className="text-gray-500 text-base">Ganti Password</Text>
+            <AntDesign name="right" size={20} color="black" />
+          </TouchableOpacity>
+          <TouchableOpacity className="flex-row justify-between">
+            <Text className="text-gray-500 text-base">Ganti Foto Profil</Text>
+            <AntDesign name="right" size={20} color="black" />
+          </TouchableOpacity>
         </View>
       </View>
     </View>
