@@ -36,6 +36,12 @@ const Layout = () => {
           headerShown: false,
         }}
       />
+      <Stack.Screen
+        name="alber-visualization"
+        options={{
+          headerShown: false,
+        }}
+      />
     </Stack>
   );
 };
