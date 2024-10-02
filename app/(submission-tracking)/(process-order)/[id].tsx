@@ -29,7 +29,7 @@ const ProcessOrderDetail = () => {
   } = useLocalSearchParams();
 
   const [currentStatus, setCurrentStatus] = useState(status); // Store the status in the state
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
 
   // Convert string[] to string and handle undefined or empty values
   const formatValue = (value: any) =>
@@ -53,7 +53,7 @@ const ProcessOrderDetail = () => {
         throw new Error("no token found!");
       }
 
-      setIsLoading(true)
+      setIsLoading(true);
 
       await axios.put(
         `${BASE_URL}/api/history-order`,
@@ -67,21 +67,12 @@ const ProcessOrderDetail = () => {
 
       const response = await axios.get(`${BASE_URL}/api/alber-status/${id}`, {
         headers: {
-          Authorization: `Bearer ${token}`
-        }
+          Authorization: `Bearer ${token}`,
+        },
       });
 
-      setCurrentStatus(response.data.status)
-
-      // Update the status locally to trigger a re-render
-      // if (currentStatus === "Order Request") setCurrentStatus("Start Working");
-      // if (currentStatus === "Start Working") setCurrentStatus("Stop Working");
-      // if (currentStatus === "Stop Working")
-      //   setCurrentStatus("Finished Working");
-
-      setIsLoading(false)
-      // setTimeout(() => {
-      // }, 100);
+      setCurrentStatus(response.data.status);
+      setIsLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -92,18 +83,8 @@ const ProcessOrderDetail = () => {
   if (currentStatus === "Start Working") buttonTitle = "Stop Working";
   if (currentStatus === "Stop Working") buttonTitle = "Finished Working";
 
-  // Use useEffect to reload/re-render the component if needed based on status change
-  // useEffect(() => {
-  //   // You could add additional logic here if you want to perform any action on page "reload"
-  //   setIsLoading(false);
-  //   setTimeout(() => {
-  //     setIsLoading(true);
-  //   }, 100);
-  //   console.log("Status has been updated to:", currentStatus);
-  // }, [currentStatus]); // Runs every time the currentStatus is updated
-
   if (isLoading) {
-    return <Loading />
+    return <Loading />;
   }
 
   return (
@@ -184,27 +165,26 @@ const ProcessOrderDetail = () => {
         ) : null}
 
         {formatValue(time_start) ? (
-          <>
-            <Text style={styles.label}>Time Start</Text>
-            <TextInput
-              style={styles.input}
-              value={formatValue(time_start)}
-              editable={false}
-              placeholder="Time Start"
-            />
-          </>
-        ) : null}
-
-        {formatValue(time_end) ? (
-          <>
-            <Text style={styles.label}>Time End</Text>
-            <TextInput
-              style={styles.input}
-              value={formatValue(time_end)}
-              editable={false}
-              placeholder="Time End"
-            />
-          </>
+          <View className="flex-row justify-between px-[4.5%] ">
+            <View>
+              <Text style={styles.label}>Time Start</Text>
+              <TextInput
+                style={[styles.input, { width: 140 }]}
+                value={formatValue(time_start).substring(0, 5)}
+                editable={false}
+                placeholder="Time Start"
+              />
+            </View>
+            <View>
+              <Text style={styles.label}>Time End</Text>
+              <TextInput
+                style={[styles.input, { width: 140 }]}
+                value={formatValue(time_end).substring(0, 5)}
+                editable={false}
+                placeholder="Time End"
+              />
+            </View>
+          </View>
         ) : null}
       </View>
       <SubmitButton
@@ -235,7 +215,7 @@ const styles = StyleSheet.create({
     color: "black",
   },
   label: {
-    marginLeft: "4.8%",
+    // marginLeft: "4.8%",
   },
 });
 
