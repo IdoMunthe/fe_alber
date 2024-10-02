@@ -31,6 +31,32 @@ const ProcessOrderDetail = () => {
   const [currentStatus, setCurrentStatus] = useState(status); // Store the status in the state
   const [isLoading, setIsLoading] = useState(false);
 
+  useEffect(() => {
+    const fetchStatus = async () => {
+      try {
+        const token = await AsyncStorage.getItem("token");
+        if (!token) {
+          throw new Error("No token found!");
+        }
+
+        setIsLoading(true);
+
+        const response = await axios.get(`${BASE_URL}/api/alber-status/${id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        setCurrentStatus(response.data.status); // Update the state with the latest status from the backend
+        setIsLoading(false);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchStatus();
+  }, [status]);
+
   // Convert string[] to string and handle undefined or empty values
   const formatValue = (value: any) =>
     Array.isArray(value) ? value.join("") : value || "";
@@ -43,8 +69,12 @@ const ProcessOrderDetail = () => {
 
   const handleSubmit = async () => {
     let action = "";
-    if (currentStatus === "Order Request") action = "start_working";
-    if (currentStatus === "Start Working") action = "stop_working";
+    if (currentStatus === "Order Request") action = "request_accepted";
+    if (currentStatus === "Manage Alber") action = "alber_to_hatch";
+    if (currentStatus === "Alber To Hatch") action = "start_working";
+    if (currentStatus === "Start Working") action = "on_working";
+    if (currentStatus === "On Working") action = "stop_working";
+    if (currentStatus === "Stop Working") action = "check_maintenance";
 
     try {
       const token = await AsyncStorage.getItem("token");
@@ -73,14 +103,18 @@ const ProcessOrderDetail = () => {
 
       setCurrentStatus(response.data.status);
       setIsLoading(false);
+      console.log(response.data.status)
     } catch (error) {
       console.log(error);
     }
   };
 
   let buttonTitle = "";
-  if (currentStatus === "Order Request") buttonTitle = "Start Working";
-  if (currentStatus === "Start Working") buttonTitle = "Stop Working";
+  if (currentStatus === "Order Request") buttonTitle = "Manage Alber";
+  if (currentStatus === "Manage Alber") buttonTitle = "Alber To Hatch";
+  if (currentStatus === "Alber To Hatch") buttonTitle = "Start Working";
+  if (currentStatus === "Start Working") buttonTitle = "On Working";
+  if (currentStatus === "On Working") buttonTitle = "Stop Working";
   if (currentStatus === "Stop Working") buttonTitle = "Finished Working";
 
   if (isLoading) {

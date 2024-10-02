@@ -55,7 +55,6 @@ const ProcessOrder = () => {
           },
         });
         setOrderData(response.data.data);
-        // console.log(response.data.data);
         setLoading(false);
       } catch (error) {
         console.error("Failed to fetch orders", error);
@@ -80,8 +79,8 @@ const ProcessOrder = () => {
       area={item.area}
       kegiatan={item.kegiatan}
       id={item.id}
-      time_start = {item.time_start}
-      time_end = {item.time_end}
+      time_start={item.time_start}
+      time_end={item.time_end}
     />
   );
 
@@ -100,11 +99,9 @@ const ProcessOrder = () => {
   }
 
   return (
-    <View style={{ flex: 1, backgroundColor: "white", paddingTop: "5%" }}>
-      <CustomHeader customStyle={{paddingTop: "10%"}} arrowStyle={{top: -10}}/>
-      <View className="mt-4">
-        <Title title="Process Order" />
-      </View>
+    <View style={{ flex: 1, backgroundColor: "white" }}>
+      <CustomHeader customStyle={{paddingTop: "11%"}}/>
+      <Title title="Process Order" />
       <FlatList
         data={orderData}
         keyExtractor={(item) => item.id.toString()}
