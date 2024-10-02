@@ -39,6 +39,7 @@ type Item = {
 const ProcessOrder = () => {
   const [orderData, setOrderData] = useState<Item[]>([]);
   const [loading, setLoading] = useState(true);
+  const [role, setRole] = useState("admin_pg");
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -56,6 +57,17 @@ const ProcessOrder = () => {
         });
         setOrderData(response.data.data);
         setLoading(false);
+
+        const { role } = (
+          await axios.get("https://alber.my.id/api/user-info", {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          })
+        ).data;
+
+        setRole(role);
+        console.log(role);
       } catch (error) {
         console.error("Failed to fetch orders", error);
         setLoading(false);
@@ -65,24 +77,36 @@ const ProcessOrder = () => {
     fetchOrders();
   }, []);
 
-  const renderItem = ({ item }: { item: Item }) => (
-    <OrderCard
-      no_order={item.no_order}
-      jenis_alber={item.jenis_alber}
-      pekerjaan={item.pekerjaan}
-      created_at={new Date(item.created_at)}
-      requested_by={item.requested_by}
-      status={item.status}
-      updated_by={item.requested_by}
-      no_palka={item.no_palka}
-      kapal={item.kapal}
-      area={item.area}
-      kegiatan={item.kegiatan}
-      id={item.id}
-      time_start={item.time_start}
-      time_end={item.time_end}
-    />
-  );
+  const renderItem = ({ item }: { item: Item }) => {
+    const isDisabled =
+      (role === "admin_pg" &&
+        (item.status === "Manage Alber" || item.status === "Alber To Hatch")) ||
+      (role === "admin_pcs" &&
+        (item.status === "Start Working" ||
+          item.status === "On Working" ||
+          item.status === "Stop Working")) ||
+      item.status === "Finished Working";
+
+    return (
+      <OrderCard
+        no_order={item.no_order}
+        jenis_alber={item.jenis_alber}
+        pekerjaan={item.pekerjaan}
+        created_at={new Date(item.created_at)}
+        requested_by={item.requested_by}
+        status={item.status}
+        updated_by={item.requested_by}
+        no_palka={item.no_palka}
+        kapal={item.kapal}
+        area={item.area}
+        kegiatan={item.kegiatan}
+        id={item.id}
+        time_start={item.time_start}
+        time_end={item.time_end}
+        isDisabled={isDisabled}
+      />
+    );
+  };
 
   if (loading) {
     return <Loading />;
@@ -100,7 +124,7 @@ const ProcessOrder = () => {
 
   return (
     <View style={{ flex: 1, backgroundColor: "white" }}>
-      <CustomHeader customStyle={{paddingTop: "11%"}}/>
+      <CustomHeader customStyle={{ paddingTop: "11%" }} />
       <Title title="Process Order" />
       <FlatList
         data={orderData}

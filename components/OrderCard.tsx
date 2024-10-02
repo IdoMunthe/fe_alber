@@ -18,6 +18,7 @@ interface OrderCardProps {
   id: number;
   time_start?: string;
   time_end?: string;
+  isDisabled: boolean;
 }
 
 const formatDate = (date: Date) => {
@@ -45,84 +46,167 @@ const OrderCard: React.FC<OrderCardProps> = ({
   id,
   time_start,
   time_end,
+  isDisabled
 }) => {
   const router = useRouter();
   return (
-    <TouchableOpacity
-      onPress={() => {
-        router.push({
-          pathname: `${id}`,
-          params: {
-            no_order,
-            jenis_alber,
-            pekerjaan,
-            kapal,
-            no_palka,
-            created_at: created_at.toISOString(), // pass date as string
-            area,
-            kegiatan,
-            requested_by,
-            status,
-            updated_by,
-            time_start,
-            time_end,
-          },
-        });
-        console.log(
-          no_order,
-          jenis_alber,
-          pekerjaan,
-          kapal,
-          no_palka,
-          created_at,
-          area,
-          kegiatan,
-          requested_by,
-          status,
-          updated_by,
-          id,
-          time_start,
-          time_end
-        );
-      }}
-      style={styles.container}
-    >
-      <View style={styles.leftContainer}>
-        <Text style={styles.h1}>{jenis_alber}</Text>
-        <Text style={styles.h2}>{pekerjaan}</Text>
-        {pekerjaan === "Loading/Unloading" ? (
-          <Text style={styles.h2}>Kapal {kapal}</Text>
-        ) : (
-          <Text style={styles.h2}>Area {area}</Text>
-        )}
-        <Text style={styles.h3}>No. Order : {no_order}</Text>
-        <Text style={styles.h3}>
-          {created_at
-            ? "Req Date  : " + formatDate(created_at)
-            : "Date is not available"}
-        </Text>
-        <Text style={styles.h3}>Request By : {requested_by}</Text>
-      </View>
-      <View style={styles.rightContainer}>
-        <View style={styles.statusContainer}>
-          <AntDesign name="clockcircleo" size={16} color="#117C00" />
-          <View>
-            <Text style={[styles.h2, { lineHeight: 16, fontSize: 10 }]}>
-              {status}
+    <>
+      {isDisabled ? (
+        <TouchableOpacity
+          onPress={() => {
+            router.push({
+              pathname: `${id}`,
+              params: {
+                no_order,
+                jenis_alber,
+                pekerjaan,
+                kapal,
+                no_palka,
+                created_at: created_at.toISOString(), // pass date as string
+                area,
+                kegiatan,
+                requested_by,
+                status,
+                updated_by,
+                time_start,
+                time_end,
+              },
+            });
+            console.log(
+              no_order,
+              jenis_alber,
+              pekerjaan,
+              kapal,
+              no_palka,
+              created_at,
+              area,
+              kegiatan,
+              requested_by,
+              status,
+              updated_by,
+              id,
+              time_start,
+              time_end
+            );
+          }}
+          style={[styles.container, { backgroundColor: "#CECECE" }]}
+        >
+          <View style={styles.leftContainer}>
+            <Text style={styles1.h1}>{jenis_alber}</Text>
+            <Text style={styles1.h2}>{pekerjaan}</Text>
+            {pekerjaan === "Loading/Unloading" ? (
+              <Text style={styles1.h2}>Kapal {kapal}</Text>
+            ) : (
+              <Text style={styles1.h2}>Area {area}</Text>
+            )}
+            <Text style={styles1.h3}>No. Order : {no_order}</Text>
+            <Text style={styles1.h3}>
+              {created_at
+                ? "Req Date  : " + formatDate(created_at)
+                : "Date is not available"}
             </Text>
-            <Text style={[styles.h3, { fontWeight: "500", fontSize: 8 }]}>
-              By: {updated_by}
-            </Text>
+            <Text style={styles1.h3}>Request By : {requested_by}</Text>
           </View>
-        </View>
-        <Link href={`tracking-history/${id}`}>
-          <Image
-            className="scale-[1.2] ml-2"
-            source={require("../assets/images/see-tracking-history.png")}
-          />
-        </Link>
-      </View>
-    </TouchableOpacity>
+          <View style={styles.rightContainer}>
+            <View
+              style={[styles.statusContainer, { backgroundColor: "#3D3D3D" }]}
+            >
+              <AntDesign name="clockcircleo" size={16} color="#FFFFFF" />
+              <View>
+                <Text style={[styles1.h2, { lineHeight: 16, fontSize: 10, color: '#FFFFFF' }]}>
+                  {status}
+                </Text>
+                <Text style={[styles1.h3, { fontWeight: "500", fontSize: 8, color: '#FFFFFF' }]}>
+                  By: {updated_by}
+                </Text>
+              </View>
+            </View>
+            <Link href={`tracking-history/${id}`}>
+              <Image
+                className="scale-[1.2] ml-2"
+                source={require("../assets/images/see-tracking-history-dark.png")}
+              />
+            </Link>
+          </View>
+        </TouchableOpacity>
+      ) : (
+        <TouchableOpacity
+          onPress={() => {
+            router.push({
+              pathname: `${id}`,
+              params: {
+                no_order,
+                jenis_alber,
+                pekerjaan,
+                kapal,
+                no_palka,
+                created_at: created_at.toISOString(), // pass date as string
+                area,
+                kegiatan,
+                requested_by,
+                status,
+                updated_by,
+                time_start,
+                time_end,
+              },
+            });
+            console.log(
+              no_order,
+              jenis_alber,
+              pekerjaan,
+              kapal,
+              no_palka,
+              created_at,
+              area,
+              kegiatan,
+              requested_by,
+              status,
+              updated_by,
+              id,
+              time_start,
+              time_end
+            );
+          }}
+          style={styles.container}
+        >
+          <View style={styles.leftContainer}>
+            <Text style={styles.h1}>{jenis_alber}</Text>
+            <Text style={styles.h2}>{pekerjaan}</Text>
+            {pekerjaan === "Loading/Unloading" ? (
+              <Text style={styles.h2}>Kapal {kapal}</Text>
+            ) : (
+              <Text style={styles.h2}>Area {area}</Text>
+            )}
+            <Text style={styles.h3}>No. Order : {no_order}</Text>
+            <Text style={styles.h3}>
+              {created_at
+                ? "Req Date  : " + formatDate(created_at)
+                : "Date is not available"}
+            </Text>
+            <Text style={styles.h3}>Request By : {requested_by}</Text>
+          </View>
+          <View style={styles.rightContainer}>
+            <View style={styles.statusContainer}>
+              <AntDesign name="clockcircleo" size={16} color="#117C00" />
+              <View>
+                <Text style={[styles.h2, { lineHeight: 16, fontSize: 10 }]}>
+                  {status}
+                </Text>
+                <Text style={[styles.h3, { fontWeight: "500", fontSize: 8 }]}>
+                  By: {updated_by}
+                </Text>
+              </View>
+            </View>
+            <Link href={`tracking-history/${id}`}>
+              <Image
+                className="scale-[1.2] ml-2"
+                source={require("../assets/images/see-tracking-history.png")}
+              />
+            </Link>
+          </View>
+        </TouchableOpacity>
+      )}
+    </>
   );
 };
 
@@ -178,6 +262,26 @@ const styles = StyleSheet.create({
     width: 120,
     maxHeight: 50,
     // flexWrap: "wrap",
+  },
+});
+
+const styles1 = StyleSheet.create({
+  h1: {
+    fontSize: 20,
+    fontWeight: "900",
+    color: "#3D3D3D",
+  },
+  h2: {
+    fontSize: 15,
+    fontWeight: "800",
+    lineHeight: 28,
+    color: "#3D3D3D",
+    maxWidth: 150,
+  },
+  h3: {
+    color: "#3D3D3D",
+    fontSize: 10,
+    fontWeight: "600",
   },
 });
 

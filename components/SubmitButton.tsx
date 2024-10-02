@@ -6,6 +6,7 @@ interface SubmitButtonProps {
   color?: string;
   marginTop?: number;
   handleSubmit: () => void;
+  isDisabled?: boolean
 }
 
 const SubmitButton: React.FC<SubmitButtonProps> = ({
@@ -13,9 +14,9 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({
   handleSubmit,
   color = "#F0D800",
   marginTop = 64,
+  isDisabled
 }) => {
   // Check if the button should be disabled
-  const isDisabled = buttonTitle === "Finished Working";
 
   return (
     <View style={styles.buttonContainer}>
@@ -28,7 +29,7 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({
           styles.button,
         ]}
         onPress={handleSubmit}
-        disabled={isDisabled} // Disable the button when title is "Finished Working"
+        disabled={isDisabled}
       >
         <Text
           style={[

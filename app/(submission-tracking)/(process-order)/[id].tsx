@@ -30,6 +30,7 @@ const ProcessOrderDetail = () => {
 
   const [currentStatus, setCurrentStatus] = useState(status); // Store the status in the state
   const [isLoading, setIsLoading] = useState(false);
+  const [role, setRole] = useState("admin_pg");
 
   useEffect(() => {
     const fetchStatus = async () => {
@@ -47,8 +48,19 @@ const ProcessOrderDetail = () => {
           },
         });
 
+        const { role } = (
+          await axios.get("https://alber.my.id/api/user-info", {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          })
+        ).data;
+
         setCurrentStatus(response.data.status); // Update the state with the latest status from the backend
         setIsLoading(false);
+
+        setRole(role);
+        console.log(role);
       } catch (error) {
         console.log(error);
       }
@@ -103,7 +115,7 @@ const ProcessOrderDetail = () => {
 
       setCurrentStatus(response.data.status);
       setIsLoading(false);
-      console.log(response.data.status)
+      console.log(response.data.status);
     } catch (error) {
       console.log(error);
     }
@@ -111,11 +123,21 @@ const ProcessOrderDetail = () => {
 
   let buttonTitle = "";
   if (currentStatus === "Order Request") buttonTitle = "Manage Alber";
-  if (currentStatus === "Manage Alber") buttonTitle = "Alber To Hatch";
+  if (currentStatus === "Manage Alber") buttonTitle = "Alber Ready";
   if (currentStatus === "Alber To Hatch") buttonTitle = "Start Working";
   if (currentStatus === "Start Working") buttonTitle = "On Working";
   if (currentStatus === "On Working") buttonTitle = "Stop Working";
   if (currentStatus === "Stop Working") buttonTitle = "Finished Working";
+
+  // Determine if the button should be disabled
+  const isButtonDisabled =
+    (role === "admin_pg" &&
+      (buttonTitle === "Manage Alber" || buttonTitle === "Alber To Hatch")) ||
+    (role === "admin_pcs" &&
+      (buttonTitle === "Start Working" ||
+        buttonTitle === "On Working" ||
+        buttonTitle === "Stop Working")) ||
+    buttonTitle === "Finished Working";
 
   if (isLoading) {
     return <Loading />;
@@ -226,6 +248,7 @@ const ProcessOrderDetail = () => {
         color="#117C00"
         marginTop={15}
         handleSubmit={handleSubmit}
+        isDisabled={isButtonDisabled}
       />
     </View>
   );
