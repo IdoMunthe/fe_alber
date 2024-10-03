@@ -9,6 +9,7 @@ import axios from "axios";
 import { BASE_URL } from "@env";
 import SubmitButton from "../../../components/SubmitButton";
 import Loading from "../../../components/Loading";
+import { useTailwind } from "nativewind";
 
 const ProcessOrderDetail = () => {
   const {
@@ -31,6 +32,9 @@ const ProcessOrderDetail = () => {
   const [currentStatus, setCurrentStatus] = useState(status); // Store the status in the state
   const [isLoading, setIsLoading] = useState(false);
   const [role, setRole] = useState("admin_pg");
+
+  const [noLambung, setNoLambung] = useState(0);
+  const [operator, setOperator] = useState("");
 
   useEffect(() => {
     const fetchStatus = async () => {
@@ -97,6 +101,17 @@ const ProcessOrderDetail = () => {
       }
 
       setIsLoading(true);
+
+      if (currentStatus === "Order Request") {
+        const edit = await axios.put(
+          `https://alber.my.id/api/nomor-lambung-dan-operator/${id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+      }
 
       await axios.put(
         `${BASE_URL}/api/history-order`,
@@ -252,7 +267,8 @@ const ProcessOrderDetail = () => {
             <Text style={styles.label}>Nomor Lambung</Text>
             <TextInput
               style={[styles.input, { width: 140 }]}
-              value={""}
+              value={noLambung.toString()}
+              onChangeText={(text) => setNoLambung(Number(text))}
               placeholder="1"
             />
           </View>
@@ -260,7 +276,8 @@ const ProcessOrderDetail = () => {
             <Text style={styles.label}>Nama Operator</Text>
             <TextInput
               style={[styles.input, { width: 140 }]}
-              value={""}
+              value={operator}
+              onChangeText={(text) => setOperator(text)}
               placeholder="Yanto"
             />
           </View>
