@@ -112,27 +112,20 @@ const ProcessOrder = () => {
     return <Loading />;
   }
 
-  if (orderData.length === 0) {
-    return (
-      <View className="bg-white flex-1">
-        <CustomHeader />
-        <Title title="Process Order" />
-        <Text className="text-lg mx-auto">Belum ada process order</Text>
-      </View>
-    );
-  }
-
   return (
     <View style={{ flex: 1, backgroundColor: "white" }}>
       <CustomHeader customStyle={{ paddingTop: "11%" }} />
       <Title title="Process Order" />
       {orderData.length === 0 ? (
-        <View className="bg-white flex-1">
-          <CustomHeader />
-          <Title title="Process Order" />
+        <ScrollView
+          refreshControl={
+            <RefreshControl refreshing={loading} onRefresh={fetchOrders} />
+          }
+          className="bg-white flex-1"
+        >
           <Text className="text-lg mx-auto">Belum ada process order</Text>
-        </View>
-      ): (
+        </ScrollView>
+      ) : (
         <FlatList
           data={orderData}
           keyExtractor={(item) => item.id.toString()}
@@ -142,7 +135,6 @@ const ProcessOrder = () => {
             <RefreshControl refreshing={loading} onRefresh={fetchOrders} />
           }
         />
-        
       )}
       <Green1 />
       <Green2 />
