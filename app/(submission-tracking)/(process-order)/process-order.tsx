@@ -75,14 +75,13 @@ const ProcessOrder = () => {
     }
   };
 
-  // Use useFocusEffect to fetch orders every time the screen comes into focus
   useFocusEffect(
     React.useCallback(() => {
       const interval = setInterval(() => {
         fetchOrders(); // Fetch data every 5 seconds
       }, 3000);
 
-      return () => clearInterval(interval); // Cleanup on unmount
+      return () => clearInterval(interval);
     }, [])
   );
 
