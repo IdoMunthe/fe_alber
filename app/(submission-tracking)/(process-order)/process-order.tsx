@@ -108,9 +108,9 @@ const ProcessOrder = () => {
     );
   };
 
-  // if (loading) {
-  //   return <Loading />;
-  // }
+  if (loading) {
+    return <Loading />;
+  }
 
   if (orderData.length === 0) {
     return (
@@ -126,7 +126,6 @@ const ProcessOrder = () => {
     <View style={{ flex: 1, backgroundColor: "white" }}>
       <CustomHeader customStyle={{ paddingTop: "11%" }} />
       <Title title="Process Order" />
-      {loading ? <Loading /> : null}
       <FlatList
         data={orderData}
         keyExtractor={(item) => item.id.toString()}

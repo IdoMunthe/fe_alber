@@ -67,7 +67,9 @@ const Dashboard = () => {
         <View className="items-center gap-0">
           <Text className="text-lg">{userInfo.name}</Text>
           <Text className="text-lg font-bold">
-            {userInfo.role === 'admin_pg' ? 'User' : userInfo.role}
+            {userInfo.role === "admin_pg" && "Admin_PG"}
+            {userInfo.role === "admin_pcs" && "Admin_PCS"}
+            {userInfo.role === "opr_pcs" && "Opr_PCS"}
           </Text>
         </View>
       </View>
