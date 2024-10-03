@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, TextInput, StyleSheet, Text } from "react-native";
+import { View, TextInput, StyleSheet, Text, ScrollView } from "react-native";
 import { useLocalSearchParams } from "expo-router";
 import CustomHeader from "../../../components/CustomHeader";
 import Title from "../../../components/Title";
@@ -67,7 +67,7 @@ const ProcessOrderDetail = () => {
     };
 
     fetchStatus();
-    console.log(status)
+    console.log(status);
   }, [status]);
 
   // Convert string[] to string and handle undefined or empty values
@@ -145,7 +145,7 @@ const ProcessOrderDetail = () => {
   }
 
   return (
-    <View className="flex-1 bg-white">
+    <ScrollView className="flex-1 bg-white">
       <CustomHeader />
       <Title title="Process Order" />
       <View style={styles.container}>
@@ -244,6 +244,29 @@ const ProcessOrderDetail = () => {
           </View>
         ) : null}
       </View>
+
+      <View>
+        <View className="h-[1] w-[100%] bg-black mb-4" />
+        <View className="flex-row justify-center gap-x-8 px-[4.5%] ">
+          <View>
+            <Text style={styles.label}>Nomor Lambung</Text>
+            <TextInput
+              style={[styles.input, { width: 140 }]}
+              value={""}
+              placeholder="1"
+            />
+          </View>
+          <View>
+            <Text style={styles.label}>Nama Operator</Text>
+            <TextInput
+              style={[styles.input, { width: 140 }]}
+              value={""}
+              placeholder="Yanto"
+            />
+          </View>
+        </View>
+      </View>
+
       <SubmitButton
         buttonTitle={buttonTitle}
         color="#117C00"
@@ -251,7 +274,7 @@ const ProcessOrderDetail = () => {
         handleSubmit={handleSubmit}
         isDisabled={isDisabled}
       />
-    </View>
+    </ScrollView>
   );
 };
 
@@ -260,6 +283,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     justifyContent: "center",
     backgroundColor: "white",
+    marginBottom: "3%",
   },
   input: {
     borderWidth: 1,
@@ -271,6 +295,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     marginBottom: 16,
     color: "black",
+    height: 40,
   },
   label: {
     // marginLeft: "4.8%",
