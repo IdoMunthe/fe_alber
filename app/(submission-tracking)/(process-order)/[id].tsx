@@ -132,7 +132,7 @@ const ProcessOrderDetail = () => {
   // Determine if the button should be disabled
   const isDisabled =
     (role === "admin_pg" &&
-      (buttonTitle === "Manage Alber" || buttonTitle === "Alber To Hatch")) ||
+      (buttonTitle === "Manage Alber" || buttonTitle === "Alber Ready")) ||
     (role === "admin_pcs" &&
       (buttonTitle === "Start Working" ||
         buttonTitle === "On Working" ||
