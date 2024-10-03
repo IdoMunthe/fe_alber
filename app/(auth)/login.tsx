@@ -24,18 +24,25 @@ const Login = () => {
 
   const handleFormSubmit = async (formValues: { [key: string]: string }) => {
     try {
-      const response = await axios.post(`${BASE_URL}/api/login` , formValues);
+      const response = await axios.post(`${BASE_URL}/api/login`, formValues);
 
-      if (response.status === 200) {
+      if (response.data.token){
         const token = response.data.token;
         await AsyncStorage.setItem("token", token);
-
         console.log("success", token);
         router.replace("/dashboard");
-      } else return Alert.alert("Login failed", "Invalid Credentials.");
-    } catch (error) {
+      } else {
+        Alert.alert("Error", response.data.message);
+      }
+
+    } catch (error: any) {
       console.log(error);
-      Alert.alert("Error", "Unable to log in. Try again later!");
+      if (error.response) {
+        Alert.alert("Error", error.response.data.message);
+      } else {
+        // Something happened in setting up the request
+        Alert.alert("Error", error.message);
+      }
     }
   };
 
