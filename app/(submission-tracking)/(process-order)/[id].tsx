@@ -300,6 +300,7 @@ const ProcessOrderDetail = () => {
                 onChangeText={(text) => setNoLambung(Number(text))}
                 editable={isAdminPCS}
                 placeholder="isi dengan angka"
+                keyboardType="numeric"
               />
 
             ) : (
@@ -308,6 +309,7 @@ const ProcessOrderDetail = () => {
                 onChangeText={(text) => setNoLambung(Number(text))}
                 editable={isAdminPCS}
                 placeholder="Isi dengan angka"
+                keyboardType="numeric"
               />
             )}
           </View>
