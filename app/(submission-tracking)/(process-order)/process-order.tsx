@@ -19,6 +19,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import Loading from "../../../components/Loading";
 // @ts-ignore
 import { BASE_URL } from "@env";
+import { useFocusEffect } from "@react-navigation/native";
 
 type Item = {
   id: number;
@@ -73,21 +74,26 @@ const ProcessOrder = () => {
       setLoading(false);
     }
   };
-  useEffect(() => {
-    fetchOrders();
-  }, []);
+
+  // Use useFocusEffect to fetch orders every time the screen comes into focus
+  useFocusEffect(
+    React.useCallback(() => {
+      fetchOrders();
+    }, [])
+  );
 
   const renderItem = ({ item }: { item: Item }) => {
     const isDisabled =
-      (role === "admin_pg" && (item.status === "Manage Alber" || item.status === "Order Request")) ||
+      (role === "admin_pg" &&
+        (item.status === "Manage Alber" || item.status === "Order Request")) ||
       (role === "admin_pcs" &&
         (item.status === "Start Working" ||
           item.status === "On Working" ||
           item.status === "Stop Working" ||
           item.status === "Alber To Hatch")) ||
       item.status === "Finished Working";
-      
-      console.log(item.status, role)
+
+    console.log(item.status, role);
 
     return (
       <OrderCard
