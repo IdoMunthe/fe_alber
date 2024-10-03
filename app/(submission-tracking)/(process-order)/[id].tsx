@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { View, TextInput, StyleSheet, Text, ScrollView } from "react-native";
-import { useLocalSearchParams } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import CustomHeader from "../../../components/CustomHeader";
 import Title from "../../../components/Title";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -136,6 +136,7 @@ const ProcessOrderDetail = () => {
 
       setCurrentStatus(response.data.status);
       setIsLoading(false);
+      router.back()
       console.log(response.data.status);
     } catch (error) {
       console.log(error);
