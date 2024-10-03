@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, TextInput, StyleSheet, Text, ScrollView } from "react-native";
+import { View, TextInput, StyleSheet, Text, ScrollView, Alert } from "react-native";
 import { router, useLocalSearchParams } from "expo-router";
 import CustomHeader from "../../../components/CustomHeader";
 import Title from "../../../components/Title";
@@ -117,6 +117,11 @@ const ProcessOrderDetail = () => {
       }
 
       setIsLoading(true);
+
+      if (noLambung === 0 || operator === "") {
+        setIsLoading(false)
+        return Alert.alert("Error!", "Pastikan 'No Lambung' dan 'Nama Operator' sudah terisi")
+      }
 
       if (currentStatus === "Order Request") {
         const edit = await axios.put(
