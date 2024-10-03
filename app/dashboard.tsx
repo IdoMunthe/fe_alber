@@ -74,6 +74,39 @@ const Dashboard = () => {
         </View>
       </View>
 
+      {userInfo.role === "admin_pg" && (
+        <View className=" flex-row justify-center pt-8 mb-6 gap-y-2 gap-x-4 flex-wrap">
+          <TouchableOpacity onPress={() => router.push("/new-request")}>
+            <Image
+              style={{ objectFit: "contain" }}
+              className="w-32 h-32"
+              source={require("../assets/images/newRequest.png")}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <Image
+              style={{ objectFit: "contain" }}
+              className="w-32 h-32 "
+              source={require("../assets/images/alberVisualization.png")}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => router.push("/submission-tracking")}>
+            <Image
+              style={{ objectFit: "contain" }}
+              className="w-32 h-32 "
+              source={require("../assets/images/submissionTracking.png")}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => router.push("/setting-application")}>
+            <Image
+              style={{ objectFit: "contain" }}
+              className="w-32 h-32 "
+              source={require("../assets/images/applicationSettings.png")}
+            />
+          </TouchableOpacity>
+        </View>
+      )}
+
       <View className=" flex-row justify-center pt-8 mb-6 gap-y-2 gap-x-4 flex-wrap">
         <TouchableOpacity onPress={() => router.push("/new-request")}>
           <Image
