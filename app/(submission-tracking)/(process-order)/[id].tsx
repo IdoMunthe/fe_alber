@@ -10,6 +10,7 @@ import { BASE_URL } from "@env";
 import SubmitButton from "../../../components/SubmitButton";
 import Loading from "../../../components/Loading";
 import { useTailwind } from "nativewind";
+import Green1 from "../../../components/Green1";
 
 const ProcessOrderDetail = () => {
   const {
@@ -161,7 +162,7 @@ const ProcessOrderDetail = () => {
 
   return (
     <ScrollView className="flex-1 bg-white">
-      <CustomHeader />
+      <CustomHeader customStyle={{paddingTop: 50, paddingBottom: 20}} />
       <Title title="Process Order" />
       <View style={styles.container}>
         {formatValue(no_order) ? (
@@ -297,10 +298,11 @@ const ProcessOrderDetail = () => {
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 20,
+    paddingHorizontal: 28,
     justifyContent: "center",
     backgroundColor: "white",
     marginBottom: "3%",
+    alignContent: "stretch"
   },
   input: {
     borderWidth: 1,
@@ -308,8 +310,7 @@ const styles = StyleSheet.create({
     padding: 5,
     borderRadius: 6,
     backgroundColor: "#fff",
-    width: 316,
-    alignSelf: "center",
+    alignSelf: "stretch",
     marginBottom: 16,
     color: "black",
     height: 40,
