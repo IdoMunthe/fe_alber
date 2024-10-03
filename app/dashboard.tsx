@@ -74,7 +74,7 @@ const Dashboard = () => {
         </View>
       </View>
 
-      {userInfo.role === "admin_pg" && (
+      {userInfo.role === "admin_pg" ? (
         <View className=" flex-row justify-center pt-8 mb-6 gap-y-2 gap-x-4 flex-wrap">
           <TouchableOpacity onPress={() => router.push("/new-request")}>
             <Image
@@ -105,8 +105,7 @@ const Dashboard = () => {
             />
           </TouchableOpacity>
         </View>
-      )}
-
+      ) : (
       <View className=" flex-row justify-center pt-8 mb-6 gap-y-2 gap-x-4 flex-wrap">
         <TouchableOpacity onPress={() => router.push("/submission-tracking")}>
           <Image
@@ -130,6 +129,7 @@ const Dashboard = () => {
           />
         </TouchableOpacity>
       </View>
+      )}
 
       <Text className="text-center font-extrabold text-[#117C00] text-2xl tracking-wider">
         Selamat Datang di {"\n"} Aplikasi Pemesanan Alat {"\n"} Berat
