@@ -114,7 +114,7 @@ const OrderCard: React.FC<OrderCardProps> = ({
               <AntDesign name="clockcircleo" size={16} color="#FFFFFF" />
               <View>
                 <Text style={[styles1.h2, { lineHeight: 16, fontSize: 10, color: '#FFFFFF' }]}>
-                  {status}
+                  {status === "Start Working" ? "On Working" : status}
                 </Text>
                 <Text style={[styles1.h3, { fontWeight: "500", fontSize: 8, color: '#FFFFFF' }]}>
                   By: {updated_by}

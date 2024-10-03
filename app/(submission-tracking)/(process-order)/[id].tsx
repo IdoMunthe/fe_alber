@@ -105,8 +105,8 @@ const ProcessOrderDetail = () => {
     if (currentStatus === "Order Request") action = "request_accepted";
     if (currentStatus === "Manage Alber") action = "alber_to_hatch";
     if (currentStatus === "Alber To Hatch") action = "start_working";
-    if (currentStatus === "Start Working") action = "on_working";
-    if (currentStatus === "On Working") action = "stop_working";
+    if (currentStatus === "Start Working") action = "stop_working";
+    // if (currentStatus === "On Working") action = "stop_working";
     if (currentStatus === "Stop Working") action = "check_maintenance";
 
     try {
@@ -167,8 +167,7 @@ const ProcessOrderDetail = () => {
   if (currentStatus === "Order Request") buttonTitle = "Manage Alber";
   if (currentStatus === "Manage Alber") buttonTitle = "Alber Ready";
   if (currentStatus === "Alber To Hatch") buttonTitle = "Start Working";
-  if (currentStatus === "Start Working") buttonTitle = "On Working";
-  if (currentStatus === "On Working") buttonTitle = "Stop Working";
+  if (currentStatus === "Start Working") buttonTitle = "Stop Working";
   if (currentStatus === "Stop Working") buttonTitle = "Finished Working";
 
   // Determine if the button should be disabled
