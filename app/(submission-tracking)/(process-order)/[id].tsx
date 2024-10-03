@@ -100,6 +100,9 @@ const ProcessOrderDetail = () => {
       : new Date(created_at).toLocaleString()
     : "";
 
+      // TODO: finish making all the status for admin_pg and admin_pcs
+    //  exclude "Checklist"
+
   const handleSubmit = async () => {
     let action = "";
     if (currentStatus === "Order Request") action = "request_accepted";
