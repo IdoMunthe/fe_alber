@@ -288,13 +288,23 @@ const ProcessOrderDetail = () => {
         <View className="flex-row justify-center gap-x-8 px-[4.5%] ">
           <View>
             <Text style={styles.label}>Nomor Lambung</Text>
-            <TextInput
-              style={[styles.input, { width: 140 }]}
-              value={noLambung.toString()}
-              onChangeText={(text) => setNoLambung(Number(text))}
-              editable={isAdminPCS}
-              placeholder="1"
-            />
+            {noLambung !== 0 ? (
+              <TextInput
+                style={[styles.input, { width: 140 }]}
+                value={noLambung.toString()}
+                onChangeText={(text) => setNoLambung(Number(text))}
+                editable={isAdminPCS}
+                placeholder="isi dengan angka"
+              />
+
+            ) : (
+              <TextInput
+                style={[styles.input, { width: 140 }]}
+                onChangeText={(text) => setNoLambung(Number(text))}
+                editable={isAdminPCS}
+                placeholder="Isi dengan angka"
+              />
+            )}
           </View>
           <View>
             <Text style={styles.label}>Nama Operator</Text>
@@ -303,7 +313,7 @@ const ProcessOrderDetail = () => {
               value={operator}
               onChangeText={(text) => setOperator(text)}
               editable={isAdminPCS}
-              placeholder="Yanto"
+              placeholder="Ex. Yanto"
             />
           </View>
         </View>
