@@ -61,10 +61,25 @@ const ProcessOrderDetail = () => {
           })
         ).data;
 
-        setCurrentStatus(response.data.status); // Update the state with the latest status from the backend
-        setIsLoading(false);
-
+        setCurrentStatus(response.data.status);
         setRole(role);
+
+        const res = await axios.get(
+          `https://alber.my.id/api/nomor-lambung-dan-operator/${id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        const { no_lambung, operator } = res.data.data;
+
+        if (status !== "Order Request") {
+          setNoLambung(no_lambung);
+          setOperator(operator);
+        }
+
+        setIsLoading(false);
         console.log(role);
       } catch (error) {
         console.log(error);
@@ -136,7 +151,7 @@ const ProcessOrderDetail = () => {
 
       setCurrentStatus(response.data.status);
       setIsLoading(false);
-      router.back()
+      router.back();
       console.log(response.data.status);
     } catch (error) {
       console.log(error);
