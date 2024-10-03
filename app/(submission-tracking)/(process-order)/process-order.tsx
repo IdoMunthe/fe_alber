@@ -6,6 +6,7 @@ import {
   ActivityIndicator,
   FlatList,
   ScrollView,
+  RefreshControl,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import Title from "../../../components/Title";
@@ -41,39 +42,38 @@ const ProcessOrder = () => {
   const [loading, setLoading] = useState(true);
   const [role, setRole] = useState("admin_pg");
 
-  useEffect(() => {
-    const fetchOrders = async () => {
-      try {
-        const token = await AsyncStorage.getItem("token");
+  const fetchOrders = async () => {
+    try {
+      const token = await AsyncStorage.getItem("token");
 
-        if (!token) {
-          throw new Error("no token found!");
-        }
+      if (!token) {
+        throw new Error("no token found!");
+      }
 
-        const response = await axios.get(`${BASE_URL}/api/user-albers`, {
+      const response = await axios.get(`${BASE_URL}/api/user-albers`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setOrderData(response.data.data);
+      setLoading(false);
+
+      const { role } = (
+        await axios.get("https://alber.my.id/api/user-info", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        });
-        setOrderData(response.data.data);
-        setLoading(false);
+        })
+      ).data;
 
-        const { role } = (
-          await axios.get("https://alber.my.id/api/user-info", {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          })
-        ).data;
-
-        setRole(role);
-        console.log(role);
-      } catch (error) {
-        console.error("Failed to fetch orders", error);
-        setLoading(false);
-      }
-    };
-
+      setRole(role);
+      console.log(role);
+    } catch (error) {
+      console.error("Failed to fetch orders", error);
+      setLoading(false);
+    }
+  };
+  useEffect(() => {
     fetchOrders();
   }, []);
 
@@ -108,9 +108,9 @@ const ProcessOrder = () => {
     );
   };
 
-  if (loading) {
-    return <Loading />;
-  }
+  // if (loading) {
+  //   return <Loading />;
+  // }
 
   if (orderData.length === 0) {
     return (
@@ -126,11 +126,15 @@ const ProcessOrder = () => {
     <View style={{ flex: 1, backgroundColor: "white" }}>
       <CustomHeader customStyle={{ paddingTop: "11%" }} />
       <Title title="Process Order" />
+      {loading ? <Loading /> : null}
       <FlatList
         data={orderData}
         keyExtractor={(item) => item.id.toString()}
         renderItem={renderItem}
         contentContainerStyle={styles.container}
+        refreshControl={
+          <RefreshControl refreshing={loading} onRefresh={fetchOrders} />
+        }
       />
       <Green1 />
       <Green2 />

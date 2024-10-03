@@ -67,6 +67,7 @@ const ProcessOrderDetail = () => {
     };
 
     fetchStatus();
+    console.log(status)
   }, [status]);
 
   // Convert string[] to string and handle undefined or empty values
