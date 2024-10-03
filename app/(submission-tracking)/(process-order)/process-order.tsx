@@ -79,13 +79,15 @@ const ProcessOrder = () => {
 
   const renderItem = ({ item }: { item: Item }) => {
     const isDisabled =
-      (role === "admin_pg" &&
-        (item.status === "Manage Alber" || item.status === "Alber To Hatch")) ||
+      (role === "admin_pg" && (item.status === "Manage Alber" || item.status === "Order Request")) ||
       (role === "admin_pcs" &&
         (item.status === "Start Working" ||
           item.status === "On Working" ||
-          item.status === "Stop Working")) ||
+          item.status === "Stop Working" ||
+          item.status === "Alber To Hatch")) ||
       item.status === "Finished Working";
+      
+      console.log(item.status, role)
 
     return (
       <OrderCard
