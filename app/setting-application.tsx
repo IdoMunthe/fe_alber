@@ -52,7 +52,9 @@ const SettingApplication = () => {
           />
           <Text className=" text-base">{userInfo.name}</Text>
           <Text className="font-bold text-base">
-            {userInfo.role === "admin_pg" ? "User" : userInfo.role}
+            {userInfo.role === "admin_pg" && "Admin_PG"}
+            {userInfo.role === "admin_pcs" && "Admin_PCS"}
+            {userInfo.role === "opr_pcs" && "Opr_PCS"}
           </Text>
         </View>
 
@@ -69,9 +71,9 @@ const SettingApplication = () => {
           </TouchableOpacity>
         </View>
 
-        <TouchableOpacity 
-        className="bg-[#FF0D0D] mt-32 items-center w-32 py-2 rounded-full mx-auto"
-        onPress={handleSubmit}
+        <TouchableOpacity
+          className="bg-[#FF0D0D] mt-32 items-center w-32 py-2 rounded-full mx-auto"
+          onPress={handleSubmit}
         >
           <Text className="text-white text-lg font-bold">Logout</Text>
         </TouchableOpacity>
