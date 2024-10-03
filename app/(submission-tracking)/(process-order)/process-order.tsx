@@ -126,15 +126,24 @@ const ProcessOrder = () => {
     <View style={{ flex: 1, backgroundColor: "white" }}>
       <CustomHeader customStyle={{ paddingTop: "11%" }} />
       <Title title="Process Order" />
-      <FlatList
-        data={orderData}
-        keyExtractor={(item) => item.id.toString()}
-        renderItem={renderItem}
-        contentContainerStyle={styles.container}
-        refreshControl={
-          <RefreshControl refreshing={loading} onRefresh={fetchOrders} />
-        }
-      />
+      {orderData.length === 0 ? (
+        <View className="bg-white flex-1">
+          <CustomHeader />
+          <Title title="Process Order" />
+          <Text className="text-lg mx-auto">Belum ada process order</Text>
+        </View>
+      ): (
+        <FlatList
+          data={orderData}
+          keyExtractor={(item) => item.id.toString()}
+          renderItem={renderItem}
+          contentContainerStyle={styles.container}
+          refreshControl={
+            <RefreshControl refreshing={loading} onRefresh={fetchOrders} />
+          }
+        />
+        
+      )}
       <Green1 />
       <Green2 />
     </View>
