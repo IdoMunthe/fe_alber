@@ -107,6 +107,10 @@ const ProcessOrderDetail = () => {
         const edit = await axios.put(
           `https://alber.my.id/api/nomor-lambung-dan-operator/${id}`,
           {
+            no_lambung: noLambung,
+            operator: operator,
+          },
+          {
             headers: {
               Authorization: `Bearer ${token}`,
             },
@@ -160,9 +164,11 @@ const ProcessOrderDetail = () => {
     return <Loading />;
   }
 
+  const isAdminPCS = role === "admin_pcs" && buttonTitle === "Manage Alber";
+
   return (
     <ScrollView className="flex-1 bg-white">
-      <CustomHeader customStyle={{paddingTop: 50, paddingBottom: 20}} />
+      <CustomHeader customStyle={{ paddingTop: 50, paddingBottom: 20 }} />
       <Title title="Process Order" />
       <View style={styles.container}>
         {formatValue(no_order) ? (
@@ -270,6 +276,7 @@ const ProcessOrderDetail = () => {
               style={[styles.input, { width: 140 }]}
               value={noLambung.toString()}
               onChangeText={(text) => setNoLambung(Number(text))}
+              editable={isAdminPCS}
               placeholder="1"
             />
           </View>
@@ -279,6 +286,7 @@ const ProcessOrderDetail = () => {
               style={[styles.input, { width: 140 }]}
               value={operator}
               onChangeText={(text) => setOperator(text)}
+              editable={isAdminPCS}
               placeholder="Yanto"
             />
           </View>
@@ -302,7 +310,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     backgroundColor: "white",
     marginBottom: "3%",
-    alignContent: "stretch"
+    alignContent: "stretch",
   },
   input: {
     borderWidth: 1,
