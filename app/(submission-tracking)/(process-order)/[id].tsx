@@ -130,7 +130,7 @@ const ProcessOrderDetail = () => {
   if (currentStatus === "Stop Working") buttonTitle = "Finished Working";
 
   // Determine if the button should be disabled
-  const isButtonDisabled =
+  const isDisabled =
     (role === "admin_pg" &&
       (buttonTitle === "Manage Alber" || buttonTitle === "Alber To Hatch")) ||
     (role === "admin_pcs" &&
@@ -248,7 +248,7 @@ const ProcessOrderDetail = () => {
         color="#117C00"
         marginTop={15}
         handleSubmit={handleSubmit}
-        isDisabled={isButtonDisabled}
+        isDisabled={isDisabled}
       />
     </View>
   );
