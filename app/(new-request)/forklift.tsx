@@ -284,6 +284,7 @@ const Forklift = () => {
               placeholder="1"
               value={nomorPalka}
               onChangeText={setNomorPalka}
+              keyboardType="numeric"
             />
           </>
         ) : null}
