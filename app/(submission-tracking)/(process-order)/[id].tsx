@@ -304,7 +304,6 @@ const ProcessOrderDetail = () => {
                 placeholder="isi dengan angka"
                 keyboardType="numeric"
               />
-
             ) : (
               <TextInput
                 style={[styles.input, { width: 140 }]}
@@ -330,7 +329,7 @@ const ProcessOrderDetail = () => {
 
       <SubmitButton
         buttonTitle={buttonTitle}
-        color="#117C00"
+        color="#F0D800"
         marginTop={15}
         handleSubmit={handleSubmit}
         isDisabled={isDisabled}
