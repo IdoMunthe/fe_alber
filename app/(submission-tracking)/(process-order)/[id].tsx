@@ -47,7 +47,7 @@ const ProcessOrderDetail = () => {
           throw new Error("No token found!");
         }
 
-        setIsLoading(true);
+        if (currentStatus !== "Manage Alber") setIsLoading(true);
 
         const response = await axios.get(`${BASE_URL}/api/alber-status/${id}`, {
           headers: {
@@ -121,7 +121,7 @@ const ProcessOrderDetail = () => {
         throw new Error("no token found!");
       }
 
-      setIsLoading(true);
+      if (currentStatus !== "Manage Alber") setIsLoading(true);
 
       if (noLambung === 0 || operator === "") {
         setIsLoading(false)
@@ -161,13 +161,14 @@ const ProcessOrderDetail = () => {
 
       setCurrentStatus(response.data.status);
       setIsLoading(false);
-      if ((buttonTitle = "Alber Ready")) {
-        setButtonClicked(true)
+      if (currentStatus === "Manage Alber") {
+        setButtonClicked(true);
         setTimeout(() => {
           router.back();
         }, 800);
       }
-      console.log(response.data.status);
+      // console.log(response.data.status);
+      console.log(buttonTitle)
     } catch (error) {
       console.log(error);
     }
@@ -344,7 +345,7 @@ const ProcessOrderDetail = () => {
       {buttonClicked && (
         <Image
           style={{ position: "absolute", top: 220, left: 30 }}
-          source={require("../../../assets/images/order-alber-success.png")}
+          source={require("../../../assets/images/alber-to-hatch.png")}
         />
       )}
     </ScrollView>
