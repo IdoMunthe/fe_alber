@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, TextInput, StyleSheet, Text, ScrollView, Alert } from "react-native";
+import { View, TextInput, StyleSheet, Text, ScrollView, Alert, Image } from "react-native";
 import { router, useLocalSearchParams } from "expo-router";
 import CustomHeader from "../../../components/CustomHeader";
 import Title from "../../../components/Title";
@@ -36,6 +36,8 @@ const ProcessOrderDetail = () => {
 
   const [noLambung, setNoLambung] = useState(0);
   const [operator, setOperator] = useState("");
+
+  const [buttonClicked, setButtonClicked] = useState(false);
 
   useEffect(() => {
     const fetchStatus = async () => {
@@ -159,7 +161,12 @@ const ProcessOrderDetail = () => {
 
       setCurrentStatus(response.data.status);
       setIsLoading(false);
-      router.back();
+      if ((buttonTitle = "Alber Ready")) {
+        setButtonClicked(true)
+        setTimeout(() => {
+          router.back();
+        }, 800);
+      }
       console.log(response.data.status);
     } catch (error) {
       console.log(error);
@@ -334,6 +341,12 @@ const ProcessOrderDetail = () => {
         handleSubmit={handleSubmit}
         isDisabled={isDisabled}
       />
+      {buttonClicked && (
+        <Image
+          style={{ position: "absolute", top: 220, left: 30 }}
+          source={require("../../../assets/images/order-alber-success.png")}
+        />
+      )}
     </ScrollView>
   );
 };
