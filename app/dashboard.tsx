@@ -13,10 +13,12 @@ import axios from "axios";
 // @ts-ignore
 import { BASE_URL } from "@env";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import Loading from "../components/Loading";
 
 const Dashboard = () => {
   const router = useRouter();
   const [userInfo, setUserInfo] = useState({ name: "", role: "" });
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     const fetchUserInfo = async () => {
@@ -37,7 +39,12 @@ const Dashboard = () => {
       }
     };
     fetchUserInfo();
+    setLoading(false)
   }, []);
+
+  if (loading) {
+    return <Loading />
+  }
 
   return (
     <SafeAreaView className="flex-1 bg-white justify-start items-center mt relative">
