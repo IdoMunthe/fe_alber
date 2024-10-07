@@ -78,7 +78,7 @@ const ProcessOrder = () => {
   useFocusEffect(
     React.useCallback(() => {
       const interval = setInterval(() => {
-        fetchOrders(); // Fetch data every 5 seconds
+        fetchOrders(); // Fetch data every 3 seconds
       }, 3000);
 
       return () => clearInterval(interval);
