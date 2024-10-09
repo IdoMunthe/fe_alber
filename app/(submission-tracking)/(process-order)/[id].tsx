@@ -207,7 +207,8 @@ const ProcessOrderDetail = () => {
 
   const isAdminPCS = role === "admin_pcs" && buttonTitle === "Manage Alber";
 
-  const additionalFieldNotVisible = (role === 'admin_pg' && currentStatus === 'Order Request')
+  const additionalFieldNotVisible =
+    role === "admin_pg" && currentStatus === "Order Request";
 
   return (
     <ScrollView className="flex-1 bg-white">
@@ -310,7 +311,7 @@ const ProcessOrderDetail = () => {
         ) : null}
       </View>
 
-      { !additionalFieldNotVisible && (
+      {!additionalFieldNotVisible && (
         <View>
           <View className="h-[1] w-[100%] bg-black mb-4" />
           <View className="flex-row justify-center gap-x-8 px-[4.5%] ">
@@ -347,6 +348,14 @@ const ProcessOrderDetail = () => {
             </View>
           </View>
         </View>
+      )}
+
+      {currentStatus === "Start Working" && role === "admin_pg" && (
+        <SubmitButton
+          buttonTitle="Request Check Maintenance"
+          // customStyle={{ color: "black", fontWeight: 600 }}
+          color="#117C00"
+        />
       )}
 
       <SubmitButton
