@@ -68,7 +68,6 @@ const ProcessOrder = () => {
       ).data;
 
       setRole(role);
-      console.log(role);
     } catch (error) {
       console.error("Failed to fetch orders", error);
       setLoading(false);
