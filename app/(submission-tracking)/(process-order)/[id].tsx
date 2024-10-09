@@ -42,7 +42,7 @@ const ProcessOrderDetail = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [role, setRole] = useState("admin_pg");
 
-  const [noLambung, setNoLambung] = useState(0);
+  const [noLambung, setNoLambung] = useState("");
   const [operator, setOperator] = useState("");
 
   const [buttonClicked, setButtonClicked] = useState(false);
@@ -131,7 +131,7 @@ const ProcessOrderDetail = () => {
 
       if (currentStatus !== "Manage Alber") setIsLoading(true);
 
-      if (noLambung === 0 || operator === "") {
+      if (noLambung === "" || operator === "") {
         setIsLoading(false);
         return Alert.alert(
           "Error!",
@@ -352,7 +352,7 @@ const ProcessOrderDetail = () => {
                 <TextInput
                   style={[styles.input, { width: 140 }]}
                   value={noLambung.toString()}
-                  onChangeText={(text) => setNoLambung(Number(text))}
+                  onChangeText={(text) => setNoLambung(text)}
                   editable={isAdminPCS}
                   placeholder="isi dengan angka"
                   keyboardType="numeric"
@@ -360,7 +360,7 @@ const ProcessOrderDetail = () => {
               ) : (
                 <TextInput
                   style={[styles.input, { width: 140 }]}
-                  onChangeText={(text) => setNoLambung(Number(text))}
+                  onChangeText={(text) => setNoLambung(text)}
                   editable={isAdminPCS}
                   placeholder="Isi dengan angka"
                   keyboardType="numeric"
