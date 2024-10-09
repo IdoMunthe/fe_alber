@@ -49,7 +49,7 @@ const ProcessOrderDetail = () => {
 
   useEffect(() => {
     const fetchStatus = async () => {
-      setIsLoading(true)
+      setIsLoading(true);
       try {
         const token = await AsyncStorage.getItem("token");
         if (!token) {
@@ -122,8 +122,6 @@ const ProcessOrderDetail = () => {
     // if (currentStatus === "On Working") action = "stop_working";
     // if (currentStatus === "Stop Working") action = "check_maintenance";
 
-    if (buttonTitle === "Request Check Maintenance") action = "check_maintenance"
-
     try {
       const token = await AsyncStorage.getItem("token");
 
@@ -180,10 +178,40 @@ const ProcessOrderDetail = () => {
           router.back();
         }, 800);
       }
-      // console.log(response.data.status);
+      router.back();
       console.log(buttonTitle);
     } catch (error) {
       console.log(error);
+    }
+  };
+
+  const handleSubmitCheckMaintenance = async () => {
+    const action = "check_maintenance";
+
+    try {
+      const token = await AsyncStorage.getItem("token");
+
+      if (!token) {
+        throw new Error("no token found!");
+      }
+      await axios.put(
+        `${BASE_URL}/api/history-order`,
+        { action, id },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      const response = await axios.get(`${BASE_URL}/api/alber-status/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      setCurrentStatus(response.data.status);
+    } catch (error) {
+      console.log(error)
     }
   };
 
