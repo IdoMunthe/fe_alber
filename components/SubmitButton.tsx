@@ -7,6 +7,7 @@ interface SubmitButtonProps {
   marginTop?: number;
   handleSubmit: () => void;
   isDisabled?: boolean
+  customStyle?: {}
 }
 
 const SubmitButton: React.FC<SubmitButtonProps> = ({
@@ -14,7 +15,8 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({
   handleSubmit,
   color = "#F0D800",
   marginTop = 64,
-  isDisabled
+  isDisabled,
+  customStyle
 }) => {
   // Check if the button should be disabled
 
@@ -35,6 +37,7 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({
           style={[
             styles.buttonText,
             { color: isDisabled ? "#888888" : "#fff" }, // Light gray text if disabled
+            customStyle,
           ]}
         >
           {buttonTitle}

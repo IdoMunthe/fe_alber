@@ -353,8 +353,8 @@ const ProcessOrderDetail = () => {
       {currentStatus === "Start Working" && role === "admin_pg" && (
         <SubmitButton
           buttonTitle="Request Check Maintenance"
-          // customStyle={{ color: "black", fontWeight: 600 }}
           color="#117C00"
+          handleSubmit={() => console.log()}
         />
       )}
 
@@ -364,6 +364,9 @@ const ProcessOrderDetail = () => {
         marginTop={15}
         handleSubmit={handleSubmit}
         isDisabled={isDisabled}
+        customStyle={{
+          color: buttonTitle === "Stop Working" ? "black" : "white",
+        }}
       />
       {buttonClicked && (
         <Image
