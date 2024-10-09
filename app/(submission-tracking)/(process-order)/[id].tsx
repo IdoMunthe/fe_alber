@@ -47,6 +47,12 @@ const ProcessOrderDetail = () => {
 
   const [buttonClicked, setButtonClicked] = useState(false);
 
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const handleManageLambung = () => {
+    setIsModalVisible(true); // Show the image when the button is clicked
+  };
+
   useEffect(() => {
     const fetchStatus = async () => {
       setIsLoading(true);
@@ -242,188 +248,192 @@ const ProcessOrderDetail = () => {
   const additionalFieldNotVisible =
     role === "admin_pg" && currentStatus === "Order Request";
 
-  if (currentStatus === "Check Maintenance") {
-    return (
-      <View className="flex-1 bg-white">
-        <CustomHeader />
-        <Title title="Process Order" />
-        <SubmitButton
-          buttonTitle="Manage No. Lambung"
-          handleSubmit={() => {}}
-        />
-        <SubmitButton
-          buttonTitle="Manage Operator"
-          handleSubmit={() => {}}
-        />
-      </View>
-    );
-  }
-
   return (
-    <ScrollView className="flex-1 bg-white">
-      <CustomHeader customStyle={{ paddingTop: 50, paddingBottom: 20 }} />
-      <Title title="Process Order" />
-      <View style={styles.container}>
-        {formatValue(no_order) ? (
-          <>
-            <Text style={styles.label}>No Order</Text>
-            <TextInput
-              style={styles.input}
-              value={formatValue(no_order)}
-              editable={false}
-              placeholder="No Order"
-            />
-          </>
-        ) : null}
-
-        {formatValue(pekerjaan) ? (
-          <>
-            <Text style={styles.label}>Jenis Pekerjaan</Text>
-            <TextInput
-              style={styles.input}
-              value={formatValue(pekerjaan)}
-              editable={false}
-              placeholder="Pekerjaan"
-            />
-          </>
-        ) : null}
-
-        {formatValue(kegiatan) ? (
-          <>
-            <Text style={styles.label}>Kegiatan</Text>
-            <TextInput
-              style={styles.input}
-              value={formatValue(kegiatan)}
-              editable={false}
-              placeholder="kegiatan"
-            />
-          </>
-        ) : null}
-
-        {formatValue(kapal) ? (
-          <>
-            <Text style={styles.label}>Kapal</Text>
-            <TextInput
-              style={styles.input}
-              value={formatValue(kapal)}
-              editable={false}
-              placeholder="Kapal"
-            />
-          </>
-        ) : null}
-
-        {formatValue(area) ? (
-          <>
-            <Text style={styles.label}>Area</Text>
-            <TextInput
-              style={styles.input}
-              value={formatValue(area)}
-              editable={false}
-              placeholder="Area"
-            />
-          </>
-        ) : null}
-
-        {formatValue(no_palka) ? (
-          <>
-            <Text style={styles.label}>Nomor Palka</Text>
-            <TextInput
-              style={styles.input}
-              value={formatValue(no_palka)}
-              editable={false}
-              placeholder="No Palka"
-            />
-          </>
-        ) : null}
-
-        {formatValue(time_start) ? (
-          <View className="flex-row justify-between px-[4.5%] ">
-            <View>
-              <Text style={styles.label}>Time Start</Text>
-              <TextInput
-                style={[styles.input, { width: 140 }]}
-                value={formatValue(time_start).substring(0, 5)}
-                editable={false}
-                placeholder="Time Start"
-              />
-            </View>
-            <View>
-              <Text style={styles.label}>Time End</Text>
-              <TextInput
-                style={[styles.input, { width: 140 }]}
-                value={formatValue(time_end).substring(0, 5)}
-                editable={false}
-                placeholder="Time End"
-              />
-            </View>
-          </View>
-        ) : null}
-      </View>
-
-      {!additionalFieldNotVisible && (
-        <View>
-          <View className="h-[1] w-[100%] bg-black mb-4" />
-          <View className="flex-row justify-center gap-x-8 px-[4.5%] ">
-            <View>
-              <Text style={styles.label}>Nomor Lambung</Text>
-              {noLambung !== null ? (
+    <>
+      {currentStatus !== "Check Maintenance" ? (
+        <ScrollView className="flex-1 bg-white">
+          <CustomHeader customStyle={{ paddingTop: 50, paddingBottom: 20 }} />
+          <Title title="Process Order" />
+          <View style={styles.container}>
+            {formatValue(no_order) ? (
+              <>
+                <Text style={styles.label}>No Order</Text>
                 <TextInput
-                  style={[styles.input, { width: 140 }]}
-                  value={noLambung.toString()}
-                  onChangeText={(text) => setNoLambung(text)}
-                  editable={isAdminPCS}
-                  placeholder="isi dengan angka"
-                  keyboardType="numeric"
+                  style={styles.input}
+                  value={formatValue(no_order)}
+                  editable={false}
+                  placeholder="No Order"
                 />
-              ) : (
+              </>
+            ) : null}
+
+            {formatValue(pekerjaan) ? (
+              <>
+                <Text style={styles.label}>Jenis Pekerjaan</Text>
                 <TextInput
-                  style={[styles.input, { width: 140 }]}
-                  onChangeText={(text) => setNoLambung(text)}
-                  editable={isAdminPCS}
-                  placeholder="Isi dengan angka"
-                  keyboardType="numeric"
+                  style={styles.input}
+                  value={formatValue(pekerjaan)}
+                  editable={false}
+                  placeholder="Pekerjaan"
                 />
-              )}
-            </View>
-            <View>
-              <Text style={styles.label}>Nama Operator</Text>
-              <TextInput
-                style={[styles.input, { width: 140 }]}
-                value={operator}
-                onChangeText={(text) => setOperator(text)}
-                editable={isAdminPCS}
-                placeholder="Ex. Yanto"
-              />
-            </View>
+              </>
+            ) : null}
+
+            {formatValue(kegiatan) ? (
+              <>
+                <Text style={styles.label}>Kegiatan</Text>
+                <TextInput
+                  style={styles.input}
+                  value={formatValue(kegiatan)}
+                  editable={false}
+                  placeholder="kegiatan"
+                />
+              </>
+            ) : null}
+
+            {formatValue(kapal) ? (
+              <>
+                <Text style={styles.label}>Kapal</Text>
+                <TextInput
+                  style={styles.input}
+                  value={formatValue(kapal)}
+                  editable={false}
+                  placeholder="Kapal"
+                />
+              </>
+            ) : null}
+
+            {formatValue(area) ? (
+              <>
+                <Text style={styles.label}>Area</Text>
+                <TextInput
+                  style={styles.input}
+                  value={formatValue(area)}
+                  editable={false}
+                  placeholder="Area"
+                />
+              </>
+            ) : null}
+
+            {formatValue(no_palka) ? (
+              <>
+                <Text style={styles.label}>Nomor Palka</Text>
+                <TextInput
+                  style={styles.input}
+                  value={formatValue(no_palka)}
+                  editable={false}
+                  placeholder="No Palka"
+                />
+              </>
+            ) : null}
+
+            {formatValue(time_start) ? (
+              <View className="flex-row justify-between px-[4.5%] ">
+                <View>
+                  <Text style={styles.label}>Time Start</Text>
+                  <TextInput
+                    style={[styles.input, { width: 140 }]}
+                    value={formatValue(time_start).substring(0, 5)}
+                    editable={false}
+                    placeholder="Time Start"
+                  />
+                </View>
+                <View>
+                  <Text style={styles.label}>Time End</Text>
+                  <TextInput
+                    style={[styles.input, { width: 140 }]}
+                    value={formatValue(time_end).substring(0, 5)}
+                    editable={false}
+                    placeholder="Time End"
+                  />
+                </View>
+              </View>
+            ) : null}
           </View>
+
+          {!additionalFieldNotVisible && (
+            <View>
+              <View className="h-[1] w-[100%] bg-black mb-4" />
+              <View className="flex-row justify-center gap-x-8 px-[4.5%] ">
+                <View>
+                  <Text style={styles.label}>Nomor Lambung</Text>
+                  {noLambung !== null ? (
+                    <TextInput
+                      style={[styles.input, { width: 140 }]}
+                      value={noLambung.toString()}
+                      onChangeText={(text) => setNoLambung(text)}
+                      editable={isAdminPCS}
+                      placeholder="isi dengan angka"
+                      keyboardType="numeric"
+                    />
+                  ) : (
+                    <TextInput
+                      style={[styles.input, { width: 140 }]}
+                      onChangeText={(text) => setNoLambung(text)}
+                      editable={isAdminPCS}
+                      placeholder="Isi dengan angka"
+                      keyboardType="numeric"
+                    />
+                  )}
+                </View>
+                <View>
+                  <Text style={styles.label}>Nama Operator</Text>
+                  <TextInput
+                    style={[styles.input, { width: 140 }]}
+                    value={operator}
+                    onChangeText={(text) => setOperator(text)}
+                    editable={isAdminPCS}
+                    placeholder="Ex. Yanto"
+                  />
+                </View>
+              </View>
+            </View>
+          )}
+
+          {currentStatus === "Start Working" && role === "admin_pg" && (
+            <SubmitButton
+              buttonTitle="Request Check Maintenance"
+              color="#117C00"
+              handleSubmit={handleSubmitCheckMaintenance}
+            />
+          )}
+
+          <SubmitButton
+            buttonTitle={buttonTitle}
+            color="#F0D800"
+            marginTop={15}
+            handleSubmit={handleSubmit}
+            isDisabled={isDisabled}
+            customStyle={{
+              color: buttonTitle === "Stop Working" ? "black" : "white",
+            }}
+          />
+          {buttonClicked && (
+            <Image
+              style={{ position: "absolute", top: 220, left: 30 }}
+              source={require("../../../assets/images/alber-to-hatch.png")}
+            />
+          )}
+        </ScrollView>
+      ) : (
+        <View className="flex-1 bg-white">
+          <CustomHeader />
+          <Title title="Process Order" />
+          <SubmitButton
+            buttonTitle="Manage No. Lambung"
+            color="#117C00"
+            handleSubmit={handleManageLambung}
+          />
+          <SubmitButton buttonTitle="Manage Operator" handleSubmit={() => {}} />
+          {isModalVisible && (
+            <Image
+              style={{ position: "absolute", top: 220, left: 30 }}
+              source={require("../../../assets/images/request-manage-no-lambung-success.png")}
+            />
+          )}
         </View>
       )}
-
-      {currentStatus === "Start Working" && role === "admin_pg" && (
-        <SubmitButton
-          buttonTitle="Request Check Maintenance"
-          color="#117C00"
-          handleSubmit={handleSubmitCheckMaintenance}
-        />
-      )}
-
-      <SubmitButton
-        buttonTitle={buttonTitle}
-        color="#F0D800"
-        marginTop={15}
-        handleSubmit={handleSubmit}
-        isDisabled={isDisabled}
-        customStyle={{
-          color: buttonTitle === "Stop Working" ? "black" : "white",
-        }}
-      />
-      {buttonClicked && (
-        <Image
-          style={{ position: "absolute", top: 220, left: 30 }}
-          source={require("../../../assets/images/alber-to-hatch.png")}
-        />
-      )}
-    </ScrollView>
+    </>
   );
 };
 
