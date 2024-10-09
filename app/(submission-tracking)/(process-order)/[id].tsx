@@ -210,8 +210,9 @@ const ProcessOrderDetail = () => {
       });
 
       setCurrentStatus(response.data.status);
+      router.back();
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   };
 
@@ -240,6 +241,23 @@ const ProcessOrderDetail = () => {
 
   const additionalFieldNotVisible =
     role === "admin_pg" && currentStatus === "Order Request";
+
+  if (currentStatus === "Check Maintenance") {
+    return (
+      <View className="flex-1 bg-white">
+        <CustomHeader />
+        <Title title="Process Order" />
+        <SubmitButton
+          buttonTitle="Manage No. Lambung"
+          handleSubmit={() => {}}
+        />
+        <SubmitButton
+          buttonTitle="Manage Operator"
+          handleSubmit={() => {}}
+        />
+      </View>
+    );
+  }
 
   return (
     <ScrollView className="flex-1 bg-white">
@@ -385,7 +403,7 @@ const ProcessOrderDetail = () => {
         <SubmitButton
           buttonTitle="Request Check Maintenance"
           color="#117C00"
-          handleSubmit={() => console.log()}
+          handleSubmit={handleSubmitCheckMaintenance}
         />
       )}
 
