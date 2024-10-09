@@ -93,7 +93,7 @@ const ProcessOrder = () => {
           item.status === "On Working" ||
           item.status === "Stop Working" ||
           item.status === "Alber To Hatch")) ||
-      item.status === "Finished Working";
+      item.status === "Stop Working";
 
     return (
       <OrderCard
