@@ -1,5 +1,5 @@
 import { View, Text, Image, StyleSheet, SafeAreaView, TouchableOpacity } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import Title from "../../components/Title";
 import CustomHeader from "../../components/CustomHeader";
 import Green1 from "../../components/Green1";
@@ -8,6 +8,7 @@ import { useRouter } from "expo-router";
 
 const SubmissionTracking = () => {
   const router = useRouter()
+  const [isLoading, setIsLoading] = useState(false);
 
   return (
     <>
