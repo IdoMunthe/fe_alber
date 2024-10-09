@@ -49,6 +49,7 @@ const ProcessOrderDetail = () => {
 
   useEffect(() => {
     const fetchStatus = async () => {
+      setIsLoading(true)
       try {
         const token = await AsyncStorage.getItem("token");
         if (!token) {
