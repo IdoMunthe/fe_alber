@@ -119,7 +119,9 @@ const ProcessOrderDetail = () => {
     if (currentStatus === "Alber To Hatch") action = "start_working";
     if (currentStatus === "Start Working") action = "stop_working";
     // if (currentStatus === "On Working") action = "stop_working";
-    if (currentStatus === "Stop Working") action = "check_maintenance";
+    // if (currentStatus === "Stop Working") action = "check_maintenance";
+
+    if (buttonTitle === "Request Check Maintenance") action = "check_maintenance"
 
     try {
       const token = await AsyncStorage.getItem("token");
