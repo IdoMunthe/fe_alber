@@ -47,10 +47,21 @@ const ProcessOrderDetail = () => {
 
   const [buttonClicked, setButtonClicked] = useState(false);
 
-  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isNoLambungClicked, setIsNoLambungClicked] = useState(false);
+  const [isOperatorclicked, setIsOperatorclicked] = useState(false);
 
   const handleManageLambung = () => {
-    setIsModalVisible(true); // Show the image when the button is clicked
+    setIsNoLambungClicked(true);
+    setTimeout(() => {
+      router.back()
+    }, 1500);
+  };
+
+  const handleManageOperator = () => {
+    setIsOperatorclicked(true);
+    setTimeout(() => {
+      router.back()
+    }, 1500);
   };
 
   useEffect(() => {
@@ -424,11 +435,17 @@ const ProcessOrderDetail = () => {
             color="#117C00"
             handleSubmit={handleManageLambung}
           />
-          <SubmitButton buttonTitle="Manage Operator" handleSubmit={() => {}} />
-          {isModalVisible && (
+          <SubmitButton buttonTitle="Manage Operator" handleSubmit={handleManageOperator} />
+          {isNoLambungClicked && (
             <Image
-              style={{ position: "absolute", top: 220, left: 30 }}
+              style={{ position: "absolute", top: 220, left: 36 }}
               source={require("../../../assets/images/request-manage-no-lambung-success.png")}
+            />
+          )}
+          {isOperatorclicked && (
+            <Image
+              style={{ position: "absolute", top: 220, left: 36 }}
+              source={require("../../../assets/images/request-manage-operator-success.png")}
             />
           )}
         </View>
