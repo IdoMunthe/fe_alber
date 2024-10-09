@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { View, TextInput, StyleSheet, Text, ScrollView, Alert, Image } from "react-native";
+import {
+  View,
+  TextInput,
+  StyleSheet,
+  Text,
+  ScrollView,
+  Alert,
+  Image,
+} from "react-native";
 import { router, useLocalSearchParams } from "expo-router";
 import CustomHeader from "../../../components/CustomHeader";
 import Title from "../../../components/Title";
@@ -82,7 +90,6 @@ const ProcessOrderDetail = () => {
         }
 
         setIsLoading(false);
-        console.log(role);
       } catch (error) {
         console.log(error);
       }
@@ -102,8 +109,8 @@ const ProcessOrderDetail = () => {
       : new Date(created_at).toLocaleString()
     : "";
 
-      // TODO: finish making all the status for admin_pg and admin_pcs
-    //  exclude "Checklist"
+  // TODO: finish making all the status for admin_pg and admin_pcs
+  //  exclude "Checklist"
 
   const handleSubmit = async () => {
     let action = "";
@@ -124,8 +131,11 @@ const ProcessOrderDetail = () => {
       if (currentStatus !== "Manage Alber") setIsLoading(true);
 
       if (noLambung === 0 || operator === "") {
-        setIsLoading(false)
-        return Alert.alert("Error!", "Pastikan 'No Lambung' dan 'Nama Operator' sudah terisi")
+        setIsLoading(false);
+        return Alert.alert(
+          "Error!",
+          "Pastikan 'No Lambung' dan 'Nama Operator' sudah terisi"
+        );
       }
 
       if (currentStatus === "Order Request") {
@@ -168,7 +178,7 @@ const ProcessOrderDetail = () => {
         }, 800);
       }
       // console.log(response.data.status);
-      console.log(buttonTitle)
+      console.log(buttonTitle);
     } catch (error) {
       console.log(error);
     }
@@ -196,6 +206,8 @@ const ProcessOrderDetail = () => {
   }
 
   const isAdminPCS = role === "admin_pcs" && buttonTitle === "Manage Alber";
+
+  const additionalFieldNotVisible = (role === 'admin_pg' && currentStatus === 'Order Request')
 
   return (
     <ScrollView className="flex-1 bg-white">
@@ -298,42 +310,44 @@ const ProcessOrderDetail = () => {
         ) : null}
       </View>
 
-      <View>
-        <View className="h-[1] w-[100%] bg-black mb-4" />
-        <View className="flex-row justify-center gap-x-8 px-[4.5%] ">
-          <View>
-            <Text style={styles.label}>Nomor Lambung</Text>
-            {noLambung !== 0 ? (
+      { !additionalFieldNotVisible && (
+        <View>
+          <View className="h-[1] w-[100%] bg-black mb-4" />
+          <View className="flex-row justify-center gap-x-8 px-[4.5%] ">
+            <View>
+              <Text style={styles.label}>Nomor Lambung</Text>
+              {noLambung !== null ? (
+                <TextInput
+                  style={[styles.input, { width: 140 }]}
+                  value={noLambung.toString()}
+                  onChangeText={(text) => setNoLambung(Number(text))}
+                  editable={isAdminPCS}
+                  placeholder="isi dengan angka"
+                  keyboardType="numeric"
+                />
+              ) : (
+                <TextInput
+                  style={[styles.input, { width: 140 }]}
+                  onChangeText={(text) => setNoLambung(Number(text))}
+                  editable={isAdminPCS}
+                  placeholder="Isi dengan angka"
+                  keyboardType="numeric"
+                />
+              )}
+            </View>
+            <View>
+              <Text style={styles.label}>Nama Operator</Text>
               <TextInput
                 style={[styles.input, { width: 140 }]}
-                value={noLambung.toString()}
-                onChangeText={(text) => setNoLambung(Number(text))}
+                value={operator}
+                onChangeText={(text) => setOperator(text)}
                 editable={isAdminPCS}
-                placeholder="isi dengan angka"
-                keyboardType="numeric"
+                placeholder="Ex. Yanto"
               />
-            ) : (
-              <TextInput
-                style={[styles.input, { width: 140 }]}
-                onChangeText={(text) => setNoLambung(Number(text))}
-                editable={isAdminPCS}
-                placeholder="Isi dengan angka"
-                keyboardType="numeric"
-              />
-            )}
-          </View>
-          <View>
-            <Text style={styles.label}>Nama Operator</Text>
-            <TextInput
-              style={[styles.input, { width: 140 }]}
-              value={operator}
-              onChangeText={(text) => setOperator(text)}
-              editable={isAdminPCS}
-              placeholder="Ex. Yanto"
-            />
+            </View>
           </View>
         </View>
-      </View>
+      )}
 
       <SubmitButton
         buttonTitle={buttonTitle}

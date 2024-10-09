@@ -96,8 +96,6 @@ const ProcessOrder = () => {
           item.status === "Alber To Hatch")) ||
       item.status === "Finished Working";
 
-    console.log(item.status, role);
-
     return (
       <OrderCard
         no_order={item.no_order}
