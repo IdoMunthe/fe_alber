@@ -18,7 +18,7 @@ import Loading from "../components/Loading";
 const Dashboard = () => {
   const router = useRouter();
   const [userInfo, setUserInfo] = useState({ name: "", role: "" });
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchUserInfo = async () => {
@@ -32,6 +32,7 @@ const Dashboard = () => {
             Authorization: `Bearer ${token}`,
           },
         });
+        setLoading(false);
         setUserInfo(response.data);
         console.log(response.data);
       } catch (error) {
@@ -39,11 +40,10 @@ const Dashboard = () => {
       }
     };
     fetchUserInfo();
-    setLoading(false)
   }, []);
 
   if (loading) {
-    return <Loading />
+    return <Loading />;
   }
 
   return (
@@ -113,29 +113,29 @@ const Dashboard = () => {
           </TouchableOpacity>
         </View>
       ) : (
-      <View className=" flex-row justify-center pt-8 mb-6 gap-y-2 gap-x-4 flex-wrap">
-        <TouchableOpacity onPress={() => router.push("/submission-tracking")}>
-          <Image
-            style={{ objectFit: "contain" }}
-            className="w-32 h-32 "
-            source={require("../assets/images/submissionTracking.png")}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <Image
-            style={{ objectFit: "contain" }}
-            className="w-32 h-32 "
-            source={require("../assets/images/alberVisualization.png")}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => router.push("/setting-application")}>
-          <Image
-            style={{ objectFit: "contain" }}
-            className="w-32 h-32 "
-            source={require("../assets/images/applicationSettings.png")}
-          />
-        </TouchableOpacity>
-      </View>
+        <View className=" flex-row justify-center pt-8 mb-6 gap-y-2 gap-x-4 flex-wrap">
+          <TouchableOpacity onPress={() => router.push("/submission-tracking")}>
+            <Image
+              style={{ objectFit: "contain" }}
+              className="w-32 h-32 "
+              source={require("../assets/images/submissionTracking.png")}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <Image
+              style={{ objectFit: "contain" }}
+              className="w-32 h-32 "
+              source={require("../assets/images/alberVisualization.png")}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => router.push("/setting-application")}>
+            <Image
+              style={{ objectFit: "contain" }}
+              className="w-32 h-32 "
+              source={require("../assets/images/applicationSettings.png")}
+            />
+          </TouchableOpacity>
+        </View>
       )}
 
       <Text className="text-center font-extrabold text-[#117C00] text-2xl tracking-wider">

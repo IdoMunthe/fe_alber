@@ -123,6 +123,8 @@ const OrderCard: React.FC<OrderCardProps> = ({
                     ? "Manage Alber"
                     : status === "Start Working"
                     ? "On Working"
+                    : status === "Stop Working"
+                    ? "End Order"
                     : status}
                 </Text>
                 <Text
@@ -208,6 +210,8 @@ const OrderCard: React.FC<OrderCardProps> = ({
                     ? "Manage Alber"
                     : status === "Start Working"
                     ? "On Working"
+                    : status === "Stop Working"
+                    ? "End Order"
                     : status}
                 </Text>
                 <Text style={[styles.h3, { fontWeight: "500", fontSize: 8 }]}>
