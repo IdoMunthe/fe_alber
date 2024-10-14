@@ -19,6 +19,7 @@ import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 // @ts-ignore
 import { BASE_URL } from "@env";
+import Loading from "../../components/Loading";
 
 export type RootStackParamList = {
   "excavator": { jenis_alber: string };
@@ -169,6 +170,10 @@ const Excavator = () => {
       return () => clearTimeout(timer);
     }
   }, [buttonClicked]);
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <>
