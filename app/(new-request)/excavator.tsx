@@ -42,6 +42,7 @@ const Excavator = () => {
   const [currentPicker, setCurrentPicker] = useState<"start" | "end" | null>(
     null
   ); // track which time field is being set
+  const [loading, setLoading] = useState(true);
 
   // Fetch next no_order from backend when component mounts
   useEffect(() => {
@@ -72,6 +73,7 @@ const Excavator = () => {
           }
         );
         setNoOrder(response.data.no_order);
+        setLoading(false)
         console.log(response.data.no_order);
       } catch (error) {
         console.error("Error fetching next order:", error);
