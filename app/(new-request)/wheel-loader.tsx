@@ -19,6 +19,7 @@ import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 // @ts-ignore
 import { BASE_URL } from "@env";
+import Loading from "../../components/Loading";
 
 export type RootStackParamList = {
   "wheel-loader": { jenis_alber: string };
@@ -41,7 +42,9 @@ const WheelLoader = () => {
   const [showPicker, setShowPicker] = useState(false);
   const [currentPicker, setCurrentPicker] = useState<"start" | "end" | null>(
     null
+
   ); // track which time field is being set
+  const [loading, setLoading] = useState(true)
 
   // Fetch next no_order from backend when component mounts
   useEffect(() => {
@@ -72,6 +75,7 @@ const WheelLoader = () => {
           }
         );
         setNoOrder(response.data.no_order);
+        setLoading(false)
         console.log(response.data.no_order);
       } catch (error) {
         console.error("Error fetching next order:", error);
@@ -166,6 +170,10 @@ const WheelLoader = () => {
       return () => clearTimeout(timer);
     }
   }, [buttonClicked]);
+
+  if (loading) {
+    return <Loading />
+  }
 
   return (
     <>
