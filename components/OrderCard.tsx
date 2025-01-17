@@ -121,6 +121,10 @@ const OrderCard: React.FC<OrderCardProps> = ({
                 >
                   {status === "Order Request"
                     ? "Manage Alber"
+                    : status === "Manage Alber"
+                    ? "Checklist"
+                    : status === "Checklist"
+                    ? "Done Checklist"
                     : status === "Start Working"
                     ? "On Working"
                     : status === "Stop Working"
@@ -139,7 +143,7 @@ const OrderCard: React.FC<OrderCardProps> = ({
             </View>
             <Link href={`tracking-history/${id}`}>
               <Image
-                className="scale-[1.2] ml-2"
+                className="my-2"
                 source={require("../assets/images/see-tracking-history-dark.png")}
               />
             </Link>
@@ -208,6 +212,10 @@ const OrderCard: React.FC<OrderCardProps> = ({
                 <Text style={[styles.h2, { lineHeight: 16, fontSize: 10 }]}>
                   {status === "Order Request"
                     ? "Manage Alber"
+                    : status === "Manage Alber"
+                    ? "Checklist"
+                    : status === "Checklist"
+                    ? "Done Checklist"
                     : status === "Start Working"
                     ? "On Working"
                     : status === "Stop Working"
@@ -221,7 +229,7 @@ const OrderCard: React.FC<OrderCardProps> = ({
             </View>
             <Link href={`tracking-history/${id}`}>
               <Image
-                className="scale-[1.2] ml-2"
+                className="my-2"
                 source={require("../assets/images/see-tracking-history.png")}
               />
             </Link>

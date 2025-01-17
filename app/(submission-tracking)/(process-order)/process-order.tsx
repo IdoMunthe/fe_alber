@@ -50,15 +50,6 @@ const ProcessOrder = () => {
       if (!token) {
         throw new Error("no token found!");
       }
-
-      const response = await axios.get(`${BASE_URL}/api/user-albers`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      setOrderData(response.data.data);
-      setLoading(false);
-
       const { role } = (
         await axios.get("https://alber.my.id/api/user-info", {
           headers: {
@@ -68,6 +59,15 @@ const ProcessOrder = () => {
       ).data;
 
       setRole(role);
+      console.log(role);
+
+      const response = await axios.get(`${BASE_URL}/api/user-albers`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setOrderData(response.data.data);
+      setLoading(false);
     } catch (error) {
       console.error("Failed to fetch orders", error);
       setLoading(false);
@@ -87,12 +87,16 @@ const ProcessOrder = () => {
   const renderItem = ({ item }: { item: Item }) => {
     const isDisabled =
       (role === "admin_pg" &&
-        (item.status === "Manage Alber" || item.status === "Order Request")) ||
+        (item.status === "Manage Alber" ||
+          item.status === "Order Request" ||
+          item.status === "Checklist")) ||
       (role === "admin_pcs" &&
         (item.status === "Start Working" ||
           item.status === "On Working" ||
           item.status === "Stop Working" ||
-          item.status === "Alber To Hatch")) ||
+          item.status === "Alber To Hatch" ||
+          item.status === "Manage Alber")) ||
+      (role === "opr_pcs" && item.status !== "Manage Alber") ||
       item.status === "Stop Working";
 
     return (

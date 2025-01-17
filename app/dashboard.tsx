@@ -49,7 +49,7 @@ const Dashboard = () => {
   return (
     <SafeAreaView className="flex-1 bg-white justify-start items-center mt relative">
       <Image
-        className="w-80 h-10 object-cover mb-5 pt-8 mt-10"
+        className="w-80 h-10 object-cover mb-5 pt-8 mt-4"
         source={require("../assets/images/gambarlogo.png")}
       />
 
@@ -90,7 +90,7 @@ const Dashboard = () => {
               source={require("../assets/images/newRequest.png")}
             />
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => router.push("/alber-visualization")}>
             <Image
               style={{ objectFit: "contain" }}
               className="w-32 h-32 "
@@ -121,7 +121,7 @@ const Dashboard = () => {
               source={require("../assets/images/submissionTracking.png")}
             />
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => router.push("/alber-visualization")}>
             <Image
               style={{ objectFit: "contain" }}
               className="w-32 h-32 "

@@ -13,24 +13,26 @@ const CustomHeader: React.FC<Props> = ({ arrowStyle, customStyle }) => {
 
   return (
     <View
-      style={[{
-        flex: 1,
-        maxHeight: 80,
-        marginTop: '1%',
-        justifyContent: "space-around",
-        alignItems: "center",
-        flexDirection: "row",
-        position: "relative",
-        // paddingBottom: '10%',
-        paddingTop: "6%",
-        height: 12,
-        backgroundColor: "#FBFBFB",
-        zIndex: 11,
-      }, customStyle]}
+      style={[
+        {
+          flex: 1,
+          maxHeight: 80,
+          justifyContent: "space-around",
+          alignItems: "center",
+          flexDirection: "row",
+          position: "relative",
+          // paddingBottom: '10%',
+          // paddingTop: "6%",
+          height: 12,
+          backgroundColor: "#FBFBFB",
+          zIndex: 11,
+        },
+        customStyle,
+      ]}
     >
       <TouchableOpacity
         onPress={() => router.back()}
-        style={{ position: "absolute", top: 40, left: 20 }}
+        style={{ position: "absolute", top: 30, left: 20 }}
       >
         <Ionicons
           name="arrow-back"

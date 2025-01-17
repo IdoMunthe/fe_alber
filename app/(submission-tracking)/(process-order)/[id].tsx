@@ -53,15 +53,45 @@ const ProcessOrderDetail = () => {
   const handleManageLambung = () => {
     setIsNoLambungClicked(true);
     setTimeout(() => {
-      router.back()
+      router.back();
     }, 1500);
   };
 
   const handleManageOperator = () => {
-    setIsOperatorclicked(true);
-    setTimeout(() => {
-      router.back()
-    }, 1500);
+    try {
+      // const token = await AsyncStorage.getItem("token");
+      // if (!token) {
+      //   throw new Error("No token found!");
+      // }
+      // const action = "manage_operator";
+
+      // console.log("Action:", action);
+      // console.log("ID:", id);
+
+      // await axios.put(
+      //   `${BASE_URL}/api/history-order`,
+      //   { action, id },
+      //   {
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //       Authorization: `Bearer ${token}`,
+      //     },
+      //   }
+      // );
+      // const response = await axios.get(`${BASE_URL}/api/alber-status/${id}`, {
+      //   headers: {
+      //     Authorization: `Bearer ${token}`,
+      //   },
+      // });
+
+      // setCurrentStatus(response.data.status);
+      setIsOperatorclicked(true);
+      setTimeout(() => {
+        router.back();
+      }, 1500);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
@@ -91,6 +121,7 @@ const ProcessOrderDetail = () => {
 
         setCurrentStatus(response.data.status);
         setRole(role);
+        console.log(role);
 
         const res = await axios.get(
           `https://alber.my.id/api/nomor-lambung-dan-operator/${id}`,
@@ -127,13 +158,11 @@ const ProcessOrderDetail = () => {
       : new Date(created_at).toLocaleString()
     : "";
 
-  // TODO: finish making all the status for admin_pg and admin_pcs
-  //  exclude "Checklist"
-
   const handleSubmit = async () => {
     let action = "";
     if (currentStatus === "Order Request") action = "request_accepted";
-    if (currentStatus === "Manage Alber") action = "alber_to_hatch";
+    if (currentStatus === "Manage Alber") action = "managed_alber";
+    if (currentStatus === "Checklist") action = "alber_to_hatch";
     if (currentStatus === "Alber To Hatch") action = "start_working";
     if (currentStatus === "Start Working") action = "stop_working";
     // if (currentStatus === "On Working") action = "stop_working";
@@ -227,7 +256,7 @@ const ProcessOrderDetail = () => {
       });
 
       setCurrentStatus(response.data.status);
-      router.back();
+      // router.back();
     } catch (error) {
       console.log(error);
     }
@@ -235,7 +264,8 @@ const ProcessOrderDetail = () => {
 
   let buttonTitle = "";
   if (currentStatus === "Order Request") buttonTitle = "Manage Alber";
-  if (currentStatus === "Manage Alber") buttonTitle = "Alber Ready";
+  if (currentStatus === "Manage Alber") buttonTitle = "Checklist";
+  if (currentStatus === "Checklist") buttonTitle = "Alber Ready";
   if (currentStatus === "Alber To Hatch") buttonTitle = "Start Working";
   if (currentStatus === "Start Working") buttonTitle = "Stop Working";
   if (currentStatus === "Stop Working") buttonTitle = "Finished Working";
@@ -243,11 +273,15 @@ const ProcessOrderDetail = () => {
   // Determine if the button should be disabled
   const isDisabled =
     (role === "admin_pg" &&
-      (buttonTitle === "Manage Alber" || buttonTitle === "Alber Ready")) ||
+      (buttonTitle === "Manage Alber" ||
+        buttonTitle === "Alber Ready" ||
+        buttonTitle === "Checklist")) ||
     (role === "admin_pcs" &&
       (buttonTitle === "Start Working" ||
         buttonTitle === "On Working" ||
-        buttonTitle === "Stop Working")) ||
+        buttonTitle === "Stop Working" ||
+        buttonTitle === "Checklist")) ||
+    (role === "opr_pcs" && buttonTitle != "Checklist") ||
     buttonTitle === "Finished Working";
 
   if (isLoading) {
@@ -435,7 +469,10 @@ const ProcessOrderDetail = () => {
             color="#117C00"
             handleSubmit={handleManageLambung}
           />
-          <SubmitButton buttonTitle="Manage Operator" handleSubmit={handleManageOperator} />
+          <SubmitButton
+            buttonTitle="Manage Operator"
+            handleSubmit={handleManageOperator}
+          />
           {isNoLambungClicked && (
             <Image
               style={{ position: "absolute", top: 220, left: 36 }}

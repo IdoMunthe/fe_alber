@@ -37,6 +37,7 @@ const Login = () => {
       } else {
         Alert.alert("Error", response.data.message);
       }
+      setLoading(false)
     } catch (error: any) {
       setLoading(false)        
       console.log(error);
@@ -45,6 +46,8 @@ const Login = () => {
       } else {
         Alert.alert("Error", error.message);
       }
+    } finally {
+      setLoading(false)
     }
   };
 
